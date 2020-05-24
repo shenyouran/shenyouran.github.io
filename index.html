@@ -153,6 +153,88 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/P1079/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/14/P1079/" class="post-title-link" itemprop="url">P1079 Vigenère 密码</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-14 08:10:32" itemprop="dateCreated datePublished" datetime="2020-02-14T08:10:32+08:00">2020-02-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-24 19:25:26" itemprop="dateModified" datetime="2020-05-24T19:25:26+08:00">2020-05-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>大模拟！这次，我用的是$char$数组，所以有很多$string$的函数都无法使用，因此需要自己编写。不过，自己编写的话也不需耗费多长时间。</p>
+<p>首先，我们输入两个字符数组$k$和$c$。接下来我们可以引入$cstring$头文件的$strlen$函数计算$k$和$c$的长度，但是有更好的方法，即：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(;k[lenk];k++);</span><br></pre></td></tr></table></figure><br>这里的$lenk$为全局变量，因此初始赋值为$0$。这样，我们在$[0,|lenk|)$区间进行查找（$|lenk|$为$lenk$的长度），当满足$k[lenk]$的时候就继续查找（注意：$k[lenk]$是一个条件语句，它判断$k[lenk]$是否为$0$，即’\0’，当该数超过长度的时候自动退出）。对于$c[]$，我们可以采用类似的方式。这样能使代码大大简化。</p>
+<p>然后我们再新建一个$lenmax$变量，赋值为$lenk$与$lenc$的最大值。然而$max$也需要头文件，因此我们进行宏定义：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> max(a,b) a&gt;b?a:b</span></span><br></pre></td></tr></table></figure>
+<p>接下来，我们要判断$lenk$与$lenc$的大小关系。如果$lenk&lt;lenc$，则我们需要把$k$数组后面的值都赋值为前面的值，具体操作方法是：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(lenk&lt;lenc)<span class="keyword">for</span>(i=lenk;i&lt;lenc;i++)k[i]=k[i%lenk];</span><br></pre></td></tr></table></figure>
+<p>上述语句中，我们可以发现：$k[i]$的值被直接赋为$k$[$i$%$l$]（因为输入的字符数组初始下标为$0$）。</p>
+<p>我们完成了这些以后，就要开始进行模拟了。因为$lenk$与$lenc$长度不一，所以我们可以直接在$[0,lenmax)$区间进行处理。</p>
+<p>在处理过程中，我们需要调用一些未在#include<cstdio>中定义的函数，这需要我们自己编写。</p>
+<p>首先是大小写的函数。为了节约时间成本，我们可以用$inline$来减少系统栈的耗时问题。大小写的函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">char</span> <span class="title">up</span><span class="params">(<span class="keyword">char</span> c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(c&gt;=<span class="string">'A'</span>&amp;&amp;c&lt;=<span class="string">'Z'</span>)<span class="keyword">return</span> c;<span class="comment">//如果已经是大写就直接返回</span></span><br><span class="line">    <span class="keyword">return</span> c-<span class="string">'a'</span>+<span class="string">'A'</span>;<span class="comment">//否则返回小写形式</span></span><br><span class="line">&#125;</span><br><span class="line">                         </span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">char</span> <span class="title">low</span><span class="params">(<span class="keyword">char</span> c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(c&gt;=<span class="string">'a'</span>&amp;&amp;c&lt;=<span class="string">'z'</span>)<span class="keyword">return</span> c;<span class="comment">//如果已经是小写就直接返回</span></span><br><span class="line">    <span class="keyword">return</span> c-<span class="string">'A'</span>+<span class="string">'a'</span>;<span class="comment">//否则返回大写形式</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来就是®️这个运算符的函数。我们观察一下下表：<img src="https://cdn.luogu.com.cn/upload/pic/30.png" alt=""></p>
+<p>我们可以发现，这个运算其实就是把两个被运算的字符相加并减去’$A$’字符。当然这个结果可能会超过’$Z$’，因此我们要进行讨论，即：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">char</span> <span class="title">r</span><span class="params">(<span class="keyword">char</span> a,<span class="keyword">char</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(a+b-<span class="string">'A'</span>&gt;<span class="string">'Z'</span>)<span class="keyword">return</span> a+b-<span class="string">'A'</span><span class="number">-26</span>;</span><br><span class="line">    <span class="keyword">return</span> a+b-<span class="string">'A'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来我们在$[$’$A$’,’$Z$’$]$区间进行查找。注意这里使用的变量$j$是全局变量，只要满足条件可以直接跳出该层循环。最后是判断密文的大小写（这可以用我们之前写好的函数）并按照它的大小写直接输出。这样我们的程序就结束了。</p>
+<p><del>下面的AC代码就不加注释了，上面已经解释得很清楚了。</del></p>
+<p>$AC$代码：（<a href="https://www.luogu.com.cn/record/30560754" target="_blank" rel="noopener">提交链接</a>）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> max(a,b) a&gt;b?a:b</span></span><br><span class="line"><span class="keyword">char</span> k[<span class="number">1001</span>],c[<span class="number">1001</span>],j;</span><br><span class="line"><span class="keyword">int</span> i,lenk,lenc,lenmax;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">char</span> <span class="title">r</span><span class="params">(<span class="keyword">char</span> a,<span class="keyword">char</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(a+b-<span class="string">'A'</span>&gt;<span class="string">'Z'</span>)<span class="keyword">return</span> a+b-<span class="string">'A'</span><span class="number">-26</span>;</span><br><span class="line">    <span class="keyword">return</span> a+b-<span class="string">'A'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">char</span> <span class="title">up</span><span class="params">(<span class="keyword">char</span> c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(c&gt;=<span class="string">'A'</span>&amp;&amp;c&lt;=<span class="string">'Z'</span>)<span class="keyword">return</span> c;</span><br><span class="line">    <span class="keyword">return</span> c-<span class="string">'a'</span>+<span class="string">'A'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">char</span> <span class="title">low</span><span class="params">(<span class="keyword">char</span> c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(c&gt;=<span class="string">'a'</span>&amp;&amp;c&lt;=<span class="string">'z'</span>)<span class="keyword">return</span> c;</span><br><span class="line">    <span class="keyword">return</span> c-<span class="string">'A'</span>+<span class="string">'a'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%s%s"</span>,k,c);</span><br><span class="line">    <span class="keyword">for</span>(;k[lenk];lenk++);</span><br><span class="line">    <span class="keyword">for</span>(;c[lenc];lenc++);</span><br><span class="line">    lenmax=max(lenk,lenc);</span><br><span class="line">    <span class="keyword">if</span>(lenk&lt;lenc)<span class="keyword">for</span>(i=lenk;i&lt;lenc;i++)k[i]=k[i%lenk];</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;lenmax;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(j=<span class="string">'A'</span>;j&lt;=<span class="string">'Z'</span>;j++)<span class="keyword">if</span>(r(up(k[i]),j)==up(c[i]))<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">if</span>(up(c[i])==c[i])<span class="built_in">printf</span>(<span class="string">"%c"</span>,j);</span><br><span class="line">        <span class="keyword">else</span>    <span class="built_in">printf</span>(<span class="string">"%c"</span>,low(j));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/13/P1012/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -184,7 +266,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-24 19:20:45" itemprop="dateModified" datetime="2020-05-24T19:20:45+08:00">2020-05-24</time>
+                <time title="Modified: 2020-05-24 19:25:15" itemprop="dateModified" datetime="2020-05-24T19:25:15+08:00">2020-05-24</time>
               </span>
 
           
@@ -410,7 +492,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-24 19:15:20" itemprop="dateModified" datetime="2020-05-24T19:15:20+08:00">2020-05-24</time>
+                <time title="Modified: 2020-05-24 19:25:03" itemprop="dateModified" datetime="2020-05-24T19:25:03+08:00">2020-05-24</time>
               </span>
 
           
@@ -508,7 +590,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -599,59 +681,6 @@
   
 
   
-      
-
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
 
   
 
