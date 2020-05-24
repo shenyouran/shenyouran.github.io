@@ -28,7 +28,7 @@
 <meta property="og:description" content="【第一步：启动程序，处理输入】 首先按照题意输入$p1$、$p2$和$p3$和字符串$s$。 【第二步：设置循环，不停判断】 代码中的$[0,|s|)$循环是程序的核心（$|s|$为字符串$s$的长度）。我们在事先新建好的另一个字符串变量$S$中保存每一次新增的字符。那么，在循环中，我们应该先判断$s_i$是否为’-‘字符。然后看$s_{i-1}$和$s_{i+1}$是否都为字母或是否都为数字并讨">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-02-12T08:30:58.000Z">
-<meta property="article:modified_time" content="2020-05-24T11:31:13.994Z">
+<meta property="article:modified_time" content="2020-05-24T11:36:51.172Z">
 <meta property="article:tag" content="题解">
 <meta name="twitter:card" content="summary">
 
@@ -189,7 +189,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-24 19:31:13" itemprop="dateModified" datetime="2020-05-24T19:31:13+08:00">2020-05-24</time>
+                <time title="Modified: 2020-05-24 19:36:51" itemprop="dateModified" datetime="2020-05-24T19:36:51+08:00">2020-05-24</time>
               </span>
 
           
@@ -412,6 +412,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 

@@ -28,7 +28,7 @@
 <meta property="og:description" content="【题目理解】我们可以很容易地注意到，该题目要求我们在[n1,n2]区间找到满足题意的Couple number $N$。 【第一步：题目转换】由题意可知，$N&#x3D;a^2-b^2(N∈[n1,n2]$且$a,b∈Z)$。而$a^2-b^2&#x3D;(a+b)(a-b)$。 【第二步：等量代换，换元求解】假设$a-b&#x3D;k$，则$a&#x3D;b+k$。即$k(k+2b)&#x3D;N$。我们可以注意到，$k$和$k+2b$奇偶性必">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-02-07T12:50:44.000Z">
-<meta property="article:modified_time" content="2020-05-24T11:31:15.900Z">
+<meta property="article:modified_time" content="2020-05-24T11:36:53.187Z">
 <meta property="article:tag" content="题解">
 <meta name="twitter:card" content="summary">
 
@@ -189,7 +189,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-24 19:31:15" itemprop="dateModified" datetime="2020-05-24T19:31:15+08:00">2020-05-24</time>
+                <time title="Modified: 2020-05-24 19:36:53" itemprop="dateModified" datetime="2020-05-24T19:36:53+08:00">2020-05-24</time>
               </span>
 
           
@@ -400,6 +400,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
