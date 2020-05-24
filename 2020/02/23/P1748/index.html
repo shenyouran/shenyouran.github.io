@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -24,13 +24,14 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="P1748 H数 题解">
 <meta property="og:url" content="http://yoursite.com/2020/02/23/P1748/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="shenyouran&#39;s Blog">
 <meta property="og:description" content="这道题一开始我有多种思路。 【思路$1$：暴力穷举（推荐程度：☆☆☆）】 竞赛期间，如果没有其他思路，只能采用这种骗分的方法。 我们在$[1,∞)$区间进行查找。具体的查找方式是：不停地对该数除以$2,3,5,7$，直到无法整除为止——最后判断除完的数是否为$1$。如果满足的数量等于$n$则输出$i$并结束程序。 于是我们得到了48分的TLE代码：（提交记录）1234567891011121314">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://shenyouran.github.io/projects/luogu/pic/P1748-1.png">
 <meta property="og:image" content="https://shenyouran.github.io/projects/luogu/pic/P1748-2.png">
 <meta property="article:published_time" content="2020-02-23T03:03:26.000Z">
 <meta property="article:modified_time" content="2020-05-24T11:39:01.344Z">
+<meta property="article:author" content="shenyouran">
 <meta property="article:tag" content="题解">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://shenyouran.github.io/projects/luogu/pic/P1748-1.png">
@@ -44,11 +45,11 @@
     sidebar: "",
     isHome : false,
     isPost : true,
-    lang   : 'en'
+    lang   : 'zh-CN'
   };
 </script>
 
-  <title>P1748 H数 题解 | Hexo</title>
+  <title>P1748 H数 题解 | shenyouran's Blog</title>
   
 
 
@@ -88,7 +89,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="切换导航栏">
         <span class="toggle-line toggle-line-first"></span>
         <span class="toggle-line toggle-line-middle"></span>
         <span class="toggle-line toggle-line-last"></span>
@@ -99,7 +100,7 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Hexo</h1>
+      <h1 class="site-title">shenyouran's Blog</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -116,22 +117,22 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
   </ul>
@@ -161,17 +162,17 @@
     
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/23/P1748/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
+      <meta itemprop="name" content="shenyouran">
       <meta itemprop="description" content="">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="shenyouran's Blog">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -183,16 +184,16 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              <span class="post-meta-item-text">发表于</span>
 
-              <time title="Created: 2020-02-23 11:03:26" itemprop="dateCreated datePublished" datetime="2020-02-23T11:03:26+08:00">2020-02-23</time>
+              <time title="创建时间：2020-02-23 11:03:26" itemprop="dateCreated datePublished" datetime="2020-02-23T11:03:26+08:00">2020-02-23</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-24 19:39:01" itemprop="dateModified" datetime="2020-05-24T19:39:01+08:00">2020-05-24</time>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-24 19:39:01" itemprop="dateModified" datetime="2020-05-24T19:39:01+08:00">2020-05-24</time>
               </span>
 
           
@@ -296,10 +297,10 @@
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          Table of Contents
+          文章目录
         </li>
         <li class="sidebar-nav-overview">
-          Overview
+          站点概览
         </li>
       </ul>
 
@@ -310,7 +311,7 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name"></p>
+  <p class="site-author-name" itemprop="name">shenyouran</p>
   <div class="site-description" itemprop="description"></div>
 </div>
 <div class="site-state-wrap motion-element">
@@ -319,14 +320,14 @@
           <a href="/archives/">
         
           <span class="site-state-item-count">10</span>
-          <span class="site-state-item-name">posts</span>
+          <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
         <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">tags</span></a>
+        <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
@@ -356,9 +357,9 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder"></span>
+  <span class="author" itemprop="copyrightHolder">shenyouran</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
 
         
