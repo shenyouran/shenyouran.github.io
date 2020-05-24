@@ -1424,7 +1424,7 @@ pre code {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #b6ba40;
+  background: #ffe495;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2434,6 +2434,14 @@ ul.breadcrumb li + li:last-child {
 .tag-cloud-10 {
   border-bottom-color: #111;
   color: #111;
+}
+.gt-header a,
+.gt-comments a,
+.gt-popup a {
+  border-bottom: none;
+}
+.gt-container .gt-popup .gt-action.is--active::before {
+  top: 0.7em;
 }
 mjx-container[jax="CHTML"][display="true"],
 .has-jax {
