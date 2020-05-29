@@ -585,7 +585,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-29 19:06:06" itemprop="dateModified" datetime="2020-05-29T19:06:06+08:00">2020-05-29</time>
+                <time title="修改时间：2020-05-30 07:58:00" itemprop="dateModified" datetime="2020-05-30T07:58:00+08:00">2020-05-30</time>
               </span>
 
           
@@ -600,7 +600,7 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>1.1k</span>
+              <span>1.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -620,13 +620,13 @@
       
           <p>这道题需要进行全面分析。对于车，我们可以得到：</p>
 <p><img src="https://shenyouran.github.io/projects/luogu/pic/CF370A-1.jpg" alt=""></p>
-<p>我们任选一个格子为出发点。我们可以很容易地注意到，$STEP_{rook}∈\{1,2\}$。如果出发点和目的地点的行、列有一者相同，则称为可以“直达”，因为这时车可以直接过去，否则车就需要中转。例如上图中，车如果要从$g8$到$a1$，则它可以走$g8-&gt;a8-&gt;a1$或$g8-&gt;g1-&gt;a1$。</p>
+<p>我们任选一个格子为出发点。我们可以很容易地注意到，$STEP_{rook}∈\{1,2\}$。如果出发点和目的地点的行、列有一者相同，则称为可以“直达”，因为这时车可以直接过去，否则车就需要中转。例如上图中，车如果要从$g8$到$a1$，则它可以走$g8\rightarrow a8\rightarrow a1$或$g8\rightarrow g1\rightarrow a1$。</p>
 <p>对于象：</p>
 <p><img src="https://shenyouran.github.io/projects/luogu/pic/CF370A-2.jpg" alt=""></p>
 <p>下过国象的大佬们都知道，经典棋局中，每一方都有两个象——它们可以通过格子的颜色进行区分——因为一个象的出发格和目的地格的格子颜色永远是一样的。因此，这里我们先做出特判——如果格子颜色不同直接输出$0$，否则继续判断。我们同样能够注意到：$STEP_{bishop}∈\{0,1,2\}$。如果出发点和目的地格在同一主/副对角线上，则$STEP_{bishop}=1$，否则$STEP_{bishop}=2$。</p>
 <p>对于王：</p>
 <p><img src="https://shenyouran.github.io/projects/luogu/pic/CF370A-3.jpg" alt=""></p>
-<p>$STEP_{king}∈\{1,…,14\}$。我们可以发现，王先斜移、再横/竖移的步数最少。如果出发点和目的地分别为$(a,b),(c,d)$，则可以有$(a,b)-&gt;(c,c-a)-&gt;(c,d)$。这可以转化为$max(abs(a-c),abs(b-d))$。加$max$的原因是，无论$b-d$为多少，只要$a-c&gt;b-d$（这里假设$a&gt;c,b&gt;d$），就一定有步数为上述公式。举一个最容易理解的例子——国王要从$a1$移动到$h$这一排。我们发现，无论如何，最短的路径也都满足这个公式。</p>
+<p>$STEP_{king}∈\{1,…,14\}$。我们可以发现，王先斜移、再横/竖移的步数最少。如果出发点和目的地分别为$(a,b),(c,d)$，则可以有$(a,b)\rightarrow (c,c-a)\rightarrow (c,d)$。这可以转化为$max(abs(a-c),abs(b-d))$。加$max$的原因是，无论$b-d$为多少，只要$a-c&gt;b-d$（这里假设$a&gt;c,b&gt;d$），就一定有步数为上述公式。举一个最容易理解的例子——国王要从$a1$移动到$h$这一排。我们发现，无论如何，最短的路径也都满足这个公式。</p>
 <p>根据多次实验和严密推导，我们可以得到下列的答案：</p>
 <p><img src="https://shenyouran.github.io/projects/luogu/pic/CF370A-4.jpg" alt=""></p>
 <p>通过上述结论，我们可以得到：（只要情况都全面，代码不是特别难，因此就不加注释了）</p>
