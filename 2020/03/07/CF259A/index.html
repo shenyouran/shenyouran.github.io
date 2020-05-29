@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shenyouran.github.io","root":"/","scheme":"Muse","version":"8.0.0-rc.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="这道题可以用$STL$之$queue$（队列）进行操作。 用$STL$ $queue$的好处是在于它便于操作，而且容量极大。本次需要用到的$queue$操作：     函数名称 类型 意义 示例     $q.push()$ $void$ 把元素入队 $q.push(1)$就是把$1$这个元素入队   $q.pop()$ $void$ 把顶部元素弹出 如果现在$q$顶部元素$8$（就是最先入队的）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CF259A Little Elephant and Chess 题解">
+<meta property="og:url" content="http://shenyouran.github.io/2020/03/07/CF259A/index.html">
+<meta property="og:site_name" content="shenyouran&#39;s Blog">
+<meta property="og:description" content="这道题可以用$STL$之$queue$（队列）进行操作。 用$STL$ $queue$的好处是在于它便于操作，而且容量极大。本次需要用到的$queue$操作：     函数名称 类型 意义 示例     $q.push()$ $void$ 把元素入队 $q.push(1)$就是把$1$这个元素入队   $q.pop()$ $void$ 把顶部元素弹出 如果现在$q$顶部元素$8$（就是最先入队的）">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-07T05:24:49.000Z">
+<meta property="article:modified_time" content="2020-05-29T09:41:06.705Z">
+<meta property="article:author" content="shenyouran">
+<meta property="article:tag" content="题解">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://shenyouran.github.io/2020/03/07/CF259A/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>CF259A Little Elephant and Chess 题解 | shenyouran's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">shenyouran's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://shenyouran.github.io/2020/03/07/CF259A/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="shenyouran">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="shenyouran's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CF259A Little Elephant and Chess 题解
+        </h1>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 13:24:49" itemprop="dateCreated datePublished" datetime="2020-03-07T13:24:49+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-29 17:41:06" itemprop="dateModified" datetime="2020-05-29T17:41:06+08:00">2020-05-29</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>这道题可以用$STL$之$queue$（队列）进行操作。</p>
+<p>用$STL$ $queue$的好处是在于它便于操作，而且容量极大。本次需要用到的$queue$操作：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>类型</th>
+<th>意义</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$q.push()$</td>
+<td>$void$</td>
+<td>把元素入队</td>
+<td>$q.push(1)$就是把$1$这个元素入队</td>
+</tr>
+<tr>
+<td>$q.pop()$</td>
+<td>$void$</td>
+<td>把顶部元素弹出</td>
+<td>如果现在$q$顶部元素$8$（就是最先入队的）弹出，那么$8$就出队，不再是队列的元素</td>
+</tr>
+<tr>
+<td>$q.empty()$</td>
+<td>$bool$</td>
+<td>判断队列是否为空（没有元素）</td>
+<td>如果队列为空就返回$1$，否则返回$0$</td>
+</tr>
+<tr>
+<td>$q.front()$</td>
+<td>队列类型</td>
+<td>返回队列顶部元素</td>
+<td>假设现在队列为$\{1,3,5,13\}$（$1$是最先进入队列的），则返回$1$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>这个了解了，我们就可以开始模拟。</p>
+<p>$WWBBWBBW$假设这个是初始的字符串。</p>
+<p>开始右移：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>当前字符串</th>
+<th>操作次数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$WWBBWBBW$</td>
+<td>$0$</td>
+</tr>
+<tr>
+<td>$WWWBBWBB$</td>
+<td>$1$</td>
+</tr>
+<tr>
+<td>$BWWWBBWB$</td>
+<td>$2$</td>
+</tr>
+<tr>
+<td>$BBWWWBBW$</td>
+<td>$3$</td>
+</tr>
+<tr>
+<td>$WBBWWWBB$</td>
+<td>$4$</td>
+</tr>
+<tr>
+<td>$BWBBWWWB$</td>
+<td>$5$</td>
+</tr>
+<tr>
+<td>$BBWBBWWW$</td>
+<td>$6$</td>
+</tr>
+<tr>
+<td>$WBBWBBWW$</td>
+<td>$7$</td>
+</tr>
+<tr>
+<td>$WWBBWBBW$</td>
+<td>$8$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>我们发现，无论如何都无法满足条件，因此返回$0$。</p>
+<p>根据上述的模拟方式，我们得到代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*耗时:906ms,内存:8.00kb,长度:794b*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;//万能头文件</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> f()for(int i=0;i&lt;8;i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> F()for(int j=0;j&lt;8;j++)<span class="comment">//宏定义两个循环</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">char</span> c[<span class="number">8</span>][<span class="number">8</span>];<span class="comment">//处理输入</span></span><br><span class="line"><span class="built_in">queue</span>&lt;<span class="keyword">char</span>&gt;q;<span class="comment">//定义char队列</span></span><br><span class="line"><span class="built_in">string</span> s[]=&#123;<span class="string">"WBWBWBWB"</span>,<span class="string">"BWBWBWBW"</span>&#125;,t[]=&#123;<span class="string">"NO"</span>,<span class="string">"YES"</span>&#125;;<span class="comment">//"WBWBWBWB"和"BWBWBWBW"是唯一的两种情况</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">(<span class="built_in">queue</span>&lt;<span class="keyword">char</span>&gt;a,<span class="built_in">string</span> s)</span><span class="comment">//判断队列里的内容排列起来是否合适</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> x=<span class="string">""</span>;</span><br><span class="line">    <span class="keyword">while</span>(!a.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        x+=a.front();</span><br><span class="line">        a.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> x==s;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">(<span class="built_in">queue</span>&lt;<span class="keyword">char</span>&gt;&amp;a)</span><span class="comment">//清空队列</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(!a.empty())a.pop();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">func</span><span class="params">(<span class="built_in">string</span> a[],<span class="keyword">bool</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    f()<span class="comment">//(0,8)循环</span></span><br><span class="line">    &#123;</span><br><span class="line">        clear(q);<span class="comment">//清空队列</span></span><br><span class="line">        F()q.push(c[i][j]);<span class="comment">//把元素推入</span></span><br><span class="line">        <span class="keyword">int</span> k=<span class="number">0</span>;<span class="comment">//最多可以右移8次，然后再右移就循环了，所以定义一个k=0</span></span><br><span class="line">        <span class="keyword">while</span>(!check(q,a[b]))<span class="comment">//如果队列内容不合适就继续右移</span></span><br><span class="line">        &#123;</span><br><span class="line">            q.push(q.front());<span class="comment">//右移操作——先推入顶部元素，再弹出顶部</span></span><br><span class="line">            q.pop();</span><br><span class="line">            k++;<span class="comment">//计数器加1</span></span><br><span class="line">            <span class="keyword">if</span>(k==<span class="number">8</span>)<span class="keyword">break</span>;<span class="comment">//到了8就直接跳出循环</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!check(q,a[b]))<span class="keyword">return</span> <span class="number">0</span>;<span class="comment">//只要有一个不同就返回0</span></span><br><span class="line">        b=!b;<span class="comment">//每一次更换</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    f()F()<span class="built_in">cin</span>&gt;&gt;c[i][j];</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;t[func(s,<span class="number">0</span>)||func(s,<span class="number">1</span>)];<span class="comment">//直接输出YES或NO</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然而，这道题目还有一道更直接、更简单的方法。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*耗时:964ms,内存:8.00kb,长度:240b*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="built_in">string</span> s;<span class="comment">//字符串保存8个字符</span></span><br><span class="line"><span class="keyword">int</span> n=<span class="number">8</span>;<span class="comment">//循环次数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(n--)<span class="comment">//while(n--)&#123;&#125;等同于循环8次</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;s;<span class="comment">//输入字符串</span></span><br><span class="line">        <span class="keyword">if</span>(s!=<span class="string">"WBWBWBWB"</span>&amp;&amp;s!=<span class="string">"BWBWBWBW"</span>)<span class="comment">//只要这行的棋格不是相邻不同的话，就直接输出NO并结束程序</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="string">"NO"</span>;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"YES"</span>;<span class="comment">//输出YES</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过这道题，我们可以发现，有的时候直接的方法的效率不一定是最高的——虽然容易理解。<del>暴力非常容易看懂</del></p>
+<p>对于同一道题，我们不妨用多种方法去芜存菁。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%A2%98%E8%A7%A3/" rel="tag"># 题解</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/06/CF370A/" rel="prev" title="CF370A Rook, Bishop and King 题解">
+      <i class="fa fa-chevron-left"></i> CF370A Rook, Bishop and King 题解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/07/CF13A/" rel="next" title="CF13A Numbers 题解">
+      CF13A Numbers 题解 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">shenyouran</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shenyouran</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '2eba7b4acb02b8d27315',
+      clientSecret: '6ae5b211db8ac3bc50e2baaa12ac9d9d67864a9b',
+      repo        : 'blog-comments',
+      owner       : 'shenyouran',
+      admin       : ['shenyouran'],
+      id          : '5744b083e6abfb482cf58d8c74909cce',
+        language: '',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>
