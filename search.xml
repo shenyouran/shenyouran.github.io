@@ -345,7 +345,7 @@ y_2=kx_2+b
     <url>/2020/03/24/CF854A/</url>
     <content><![CDATA[<p>我们先理清题意——对于输入的整数$n$和最终的两个数$a,b$，必定满足：</p>
 <ul>
-<li>$a,b,n∈N^*$</li>
+<li>$a,b,n∈N^+$</li>
 <li>$a+b=n$</li>
 <li>$gcd(a,b)=1$</li>
 </ul>
@@ -362,13 +362,13 @@ y_2=kx_2+b
 <p>因此$n,n+1$互质。</p>
 <p>那么对于偶数呢？最大的两个和为$n$的整数为$a=\frac{n}{2}-1,b=\frac{n}{2}+1$。</p>
 <p>那么，如果$\frac{n}{2}$为奇数，即$n\bmod 4=2$，则$a,b$目前均为偶数，因此$a=\frac{n}{2}-1,b=\frac{n}{2}+1$不符合题意。所以退而求其次，即考虑$a=\frac{n}{2}-2,b=\frac{n}{2}+2$。这个时候我们发现$a,b$都为奇数。</p>
-<p>此时$b-a=4$。有一个定理，叫做$\color{red}\text{两个差为4的正奇数互质}}$。具体证明方法：</p>
+<p>此时$b-a=4$。有一个定理，叫做$\color{red}\text{两个差为4的正奇数互质}$。具体证明方法：</p>
 <p>有一个一般的定理：</p>
-<script type="math/tex; mode=display">\color{red}{\text{如果a,b互质，那么a,a+b互质。}}</script><p>这里我们用反证法明一下：（$N^*$表示正整数集合）</p>
-<p>设$gcd(a,a+b)=k(k&gt;1)$。所以我们可以得到$\frac{a}{k},\frac{a+b}{k}∈N^<em>$。所以$\frac{a+b}{k}-\frac{a}{k}=\frac{b}{k}∈N^</em>$。</p>
+<script type="math/tex; mode=display">\color{red}{\text{如果a,b互质，那么a,a+b互质。}}</script><p>这里我们用反证法明一下：（$N^+$表示正整数集合）</p>
+<p>设$gcd(a,a+b)=k(k&gt;1)$。所以我们可以得到$\frac{a}{k},\frac{a+b}{k}∈N^+$。所以$\frac{a+b}{k}-\frac{a}{k}=\frac{b}{k}∈N^+$。</p>
 <p>这个时候我们发现$a,b$都能够被$k$整除。因此假设不成立，于是结论是成立的。</p>
 <p>因此，我们可以得到扩展结论：</p>
-<script type="math/tex; mode=display">\color{red}{\text{如果a为正奇数，那么a,a+2n互质。（n∈N*）}}</script><p>原因很简单，在$a$为正奇数的前提下，首先$a$与$2n$必定互质，因为一个为奇数，一个为偶数。所以$a,a+2n$互质。</p>
+<script type="math/tex; mode=display">\color{red}{\text{如果a为正奇数，那么a,a+2n互质。（n∈N^+）}}</script><p>原因很简单，在$a$为正奇数的前提下，首先$a$与$2n$必定互质，因为一个为奇数，一个为偶数。所以$a,a+2n$互质。</p>
 <p>传送门中介绍了一般情况的证明方法，而$4$是满足条件的，所以这时答案为$a=\frac{n}{2}-2,b=\frac{n}{2}+2$。</p>
 <p>那么，对于$n\bmod 4=0$，我们有$a=\frac{n}{2}-1,b=\frac{n}{2}+1$。这时$a,b$均为奇数，且相差$2$，用上述同理的方法可以证明这两个整数互质。</p>
 <p>因此，我们可以得到：</p>
