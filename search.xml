@@ -91,9 +91,9 @@
 ]]></content>
       <tags>
         <tag>题解</tag>
-        <tag>队列</tag>
         <tag>洛谷</tag>
         <tag>BFS</tag>
+        <tag>队列</tag>
         <tag>差分</tag>
       </tags>
   </entry>
@@ -109,6 +109,27 @@
 ]]></content>
       <tags>
         <tag>Hello world!</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>P6581 远大目标 题解</title>
+    <url>/P6581/</url>
+    <content><![CDATA[<h3 id="color-green-text-简单推导"><a href="#color-green-text-简单推导" class="headerlink" title="$\color{green}\text{简单推导}$"></a>$\color{green}\text{简单推导}$</h3><p>题目中说给出一个整数$O$，求满足$|A|&lt;O$且$A$为整数的$A$的个数。</p>
+<p>由于$|A|\ge 0$，所以当$O\le 0$时，没有满足$|A|&lt;O$的整数$A$。所以这里要进行特判。</p>
+<p>对于其他情况，$O\gt 0$。因为$O$为正整数，又因为$|A|\ge 0$，所以$0\le |A| \lt O$。所以满足条件的$|A|$有$O$个，分别为$\{0,1,…,O-1\}$。</p>
+<p>因此，对于上述集合中的除了$0$以外的所有元素，每一个$|A|$都对应两个$A$值，即$|A|$和$-|A|$。但是当$|A|=0$的时候，$|A|=-|A|=0$，所以对于$0$，只有一种符合题意的$A$。</p>
+<p>所以在$O\gt 0$的前提下，符合条件的$A$个数为$2O-1$。</p>
+<p>综上所述，题目的答案为$\max(0,2O-1)$。</p>
+<h3 id="color-green-text-范围分析"><a href="#color-green-text-范围分析" class="headerlink" title="$\color{green}\text{范围分析}$"></a>$\color{green}\text{范围分析}$</h3><p>题目中给出的范围是$0\le |O| \le 2^{63}-1$，所以$\text{C++}$使用$\text{long long}$是一定会炸掉的，所以$\text{C++}$必须使用高精度。但是$\text{Python}$<del>自带高精度</del>，所以我们可以直接利用这个特性。</p>
+<h3 id="color-green-text-代码"><a href="#color-green-text-代码" class="headerlink" title="$\color{green}\text{代码}$"></a>$\color{green}\text{代码}$</h3><p>$\text{Python}$代码：<a href="https://www.luogu.com.cn/record/34010193" target="_blank" rel="noopener">（提交记录）</a></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">o = int(input())//int类型读入o</span><br><span class="line"><span class="keyword">if</span> <span class="number">2</span> * o &lt; <span class="number">1</span>://进行判断，如果<span class="number">2</span>o&lt;<span class="number">1</span>就输出<span class="number">0</span>，不特判会输出负数</span><br><span class="line">    print(<span class="number">0</span>)</span><br><span class="line"><span class="keyword">else</span>://否则输出<span class="number">2</span>o<span class="number">-1</span></span><br><span class="line">    print(<span class="number">2</span> * o - <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>$\text{C++}$高精度代码：<a href="https://www.luogu.com.cn/record/34010826" target="_blank" rel="noopener">（提交记录）</a></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="built_in">string</span> o;</span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">Add</span><span class="params">(<span class="built_in">string</span> a,<span class="built_in">string</span> b)</span><span class="comment">//高精度加法模板</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> lena=a.size(),lenb=b.size(),lenc=<span class="number">1</span>,A[<span class="number">10000</span>]=&#123;<span class="number">0</span>&#125;,B[<span class="number">10000</span>]=&#123;<span class="number">0</span>&#125;,C[<span class="number">20000</span>]=&#123;<span class="number">0</span>&#125;,i,x=<span class="number">0</span>;</span><br><span class="line">    <span class="built_in">string</span> result=<span class="string">""</span>;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;lena;i++)A[lena-i]=a[i]-<span class="string">'0'</span>;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;lenb;i++)B[lenb-i]=b[i]-<span class="string">'0'</span>;</span><br><span class="line">    <span class="keyword">while</span>(lenc&lt;=lena||lenc&lt;=lenb)</span><br><span class="line">    &#123;</span><br><span class="line">        C[lenc]=A[lenc]+B[lenc]+x;</span><br><span class="line">        x=C[lenc]/<span class="number">10</span>;</span><br><span class="line">        C[lenc]%=<span class="number">10</span>;</span><br><span class="line">        lenc++;</span><br><span class="line">    &#125;</span><br><span class="line">    C[lenc]=x;</span><br><span class="line">    <span class="keyword">if</span>(!C[lenc])lenc--;</span><br><span class="line">    <span class="keyword">for</span>(i=lenc;i;i--)result+=C[i]+<span class="string">'0'</span>;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">Minus</span><span class="params">(<span class="built_in">string</span> a,<span class="built_in">string</span> b)</span><span class="comment">//高精度减法模板（注意minus是一个系统函数名）</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> lena=a.size(),lenb=b.size(),lenc=<span class="number">1</span>,A[<span class="number">200</span>]=&#123;<span class="number">0</span>&#125;,B[<span class="number">200</span>]=&#123;<span class="number">0</span>&#125;,C[<span class="number">200</span>]=&#123;<span class="number">0</span>&#125;,i;</span><br><span class="line">    <span class="keyword">if</span>(lena&lt;lenb||lena==lenb&amp;&amp;a&lt;b)</span><br><span class="line">    &#123;</span><br><span class="line">        swap(lena,lenb);</span><br><span class="line">        swap(a,b);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">string</span> result=<span class="string">""</span>;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;lena;i++)A[lena-i]=a[i]-<span class="string">'0'</span>;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;lenb;i++)B[lenb-i]=b[i]-<span class="string">'0'</span>;</span><br><span class="line">    <span class="keyword">while</span>(lenc&lt;=lena)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(A[lenc]&lt;B[lenc])</span><br><span class="line">        &#123;</span><br><span class="line">            A[lenc]+=<span class="number">10</span>;</span><br><span class="line">            A[lenc+<span class="number">1</span>]--;</span><br><span class="line">        &#125;</span><br><span class="line">        C[lenc]=A[lenc]-B[lenc];</span><br><span class="line">        lenc++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(!C[lenc]&amp;&amp;lenc&gt;<span class="number">1</span>)lenc--;</span><br><span class="line">    <span class="keyword">for</span>(i=lenc;i;i--)result+=C[i]+<span class="string">'0'</span>;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;o;<span class="comment">//字符串形式输入</span></span><br><span class="line">    <span class="keyword">if</span>(o==<span class="string">"0"</span>||o[<span class="number">0</span>]==<span class="string">'-'</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">putchar</span>(<span class="string">'0'</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//2o-1&lt;0说明要输出0，即o&lt;=0时要输出0。判断方法就是通过字符串首位为负号或者字符串为0</span></span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;Minus(Add(o,o),<span class="string">"1"</span>);<span class="comment">//高精度模板函数没有考虑负数，所以先加再减，输出的是字符串形式</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>题解</tag>
+        <tag>数学</tag>
+        <tag>洛谷</tag>
+        <tag>高精度</tag>
       </tags>
   </entry>
   <entry>
@@ -249,8 +270,8 @@
 ]]></content>
       <tags>
         <tag>题解</tag>
-        <tag>模拟</tag>
         <tag>字符串</tag>
+        <tag>模拟</tag>
         <tag>洛谷</tag>
         <tag>递归</tag>
       </tags>
@@ -746,8 +767,8 @@ y_2=kx_2+b
       <tags>
         <tag>题解</tag>
         <tag>Codeforces</tag>
-        <tag>队列</tag>
         <tag>模拟</tag>
+        <tag>队列</tag>
       </tags>
   </entry>
   <entry>
@@ -810,8 +831,8 @@ y_2=kx_2+b
       <tags>
         <tag>题解</tag>
         <tag>Codeforces</tag>
-        <tag>模拟</tag>
         <tag>字符串</tag>
+        <tag>模拟</tag>
       </tags>
   </entry>
   <entry>
@@ -977,9 +998,9 @@ y_2=kx_2+b
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> n,i,j,f[<span class="number">4</span>]=&#123;<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>&#125;,m[]=&#123;<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>&#125;;<span class="comment">//这四个指针分别为2、3、5、7，而一开始指针都位于1，所以要进行初始化</span></span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> h[<span class="number">100001</span>],M;<span class="comment">//不开long long会爆掉！</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">    h[<span class="number">1</span>]=<span class="number">1</span>;<span class="comment">//h[1]初始化为1</span></span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">2</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        M=h[f[<span class="number">0</span>]]*m[<span class="number">0</span>];<span class="comment">//默认最小值为指针f2所产生的数，然后在3、5、7所产生的数中进行判断，找出2、3、5、7所产生数的最小值（如下）</span></span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">1</span>;j&lt;<span class="number">4</span>;j++)<span class="keyword">if</span>(h[f[j]]*m[j]&lt;M)M=h[f[j]]*m[j];</span><br><span class="line">        h[i]=M;<span class="comment">//这个时候把h[i]赋值为最小值，即M</span></span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;<span class="number">4</span>;j++)<span class="keyword">if</span>(M==h[f[j]]*m[j])f[j]++;<span class="comment">//判断过后，最小值所对应的指针要向右，即加1</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lld"</span>,h[n]);<span class="comment">//最后输出h[]数组中的第n个元素即可</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>题解</tag>
-        <tag>队列</tag>
         <tag>洛谷</tag>
         <tag>BFS</tag>
+        <tag>队列</tag>
       </tags>
   </entry>
   <entry>
@@ -1034,8 +1055,8 @@ y_2=kx_2+b
 ]]></content>
       <tags>
         <tag>题解</tag>
-        <tag>模拟</tag>
         <tag>字符串</tag>
+        <tag>模拟</tag>
         <tag>洛谷</tag>
       </tags>
   </entry>
@@ -1051,8 +1072,8 @@ y_2=kx_2+b
 ]]></content>
       <tags>
         <tag>题解</tag>
-        <tag>DFS</tag>
         <tag>洛谷</tag>
+        <tag>DFS</tag>
       </tags>
   </entry>
   <entry>
@@ -1081,8 +1102,8 @@ y_2=kx_2+b
 ]]></content>
       <tags>
         <tag>题解</tag>
-        <tag>模拟</tag>
         <tag>字符串</tag>
+        <tag>模拟</tag>
         <tag>洛谷</tag>
       </tags>
   </entry>
