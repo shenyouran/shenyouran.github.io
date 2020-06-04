@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://shenyouran.github.io/categories/index.html</loc>
+    
+    <lastmod>2020-06-04T14:54:49.265Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://shenyouran.github.io/P6474/</loc>
     
     <lastmod>2020-06-04T14:21:04.561Z</lastmod>
@@ -208,13 +215,6 @@
     <loc>http://shenyouran.github.io/tags/index.html</loc>
     
     <lastmod>2020-05-24T11:29:22.357Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://shenyouran.github.io/categories/index.html</loc>
-    
-    <lastmod>2020-05-24T11:29:13.192Z</lastmod>
     
   </url>
   
