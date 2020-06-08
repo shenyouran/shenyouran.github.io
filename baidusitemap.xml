@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://shenyouran.github.io/binary/</loc>
+    <lastmod>2020-06-08</lastmod>
+  </url>  <url>
     <loc>http://shenyouran.github.io/P1348/</loc>
     <lastmod>2020-06-07</lastmod>
   </url>  <url>
@@ -47,9 +50,6 @@
     <lastmod>2020-06-07</lastmod>
   </url>  <url>
     <loc>http://shenyouran.github.io/JSOI96116/</loc>
-    <lastmod>2020-06-07</lastmod>
-  </url>  <url>
-    <loc>http://shenyouran.github.io/binary/</loc>
     <lastmod>2020-06-07</lastmod>
   </url>  <url>
     <loc>http://shenyouran.github.io/P6474/</loc>
