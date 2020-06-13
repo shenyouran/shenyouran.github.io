@@ -477,6 +477,157 @@ C=c^2-3bd
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://shenyouran.github.io/search/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="shenyouran">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="shenyouran's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/search/" class="post-title-link" itemprop="url">（待更新）搜索入门</a>
+        </h2>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-06-13 13:24:21 / 修改时间：18:27:22" itemprop="dateCreated datePublished" datetime="2020-06-13T13:24:21+08:00">2020-06-13</time>
+            </span>
+
+          
+            <span id="/search/" class="post-meta-item leancloud_visitors" data-flag-title="（待更新）搜索入门" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+              <span>3.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="color-red-text-算法引入"><a href="#color-red-text-算法引入" class="headerlink" title="$\color{red}\text{算法引入}$"></a>$\color{red}\text{算法引入}$</h2><p>小时候，我们会玩一种迷宫游戏。下面就是非常简单的一种：</p>
+<p><img src="https://shenyouran.github.io/projects/search/maze.jpg" alt=""></p>
+<p>完成该迷宫可以有很多种方法：</p>
+<ul>
+<li><p>正向搜索</p>
+</li>
+<li><p>逆向倒推</p>
+</li>
+</ul>
+<p>不管使用哪一种方法，如果遇到走不通的路，我们都会到上一步的位置，然后重新寻找。只要反复地使用这种方法，我们就能够走出迷宫。</p>
+<p>在$\text{OI}$中，我们会把迷宫进行抽象化，例如用<code>#</code>表示障碍，<code>.</code>表示可走的位置，当然这样的操作只能还原普通的矩形迷宫（<del>当然奇形怪状的迷宫就不行了</del>）。</p>
+<p>例如这个迷宫（数字表示长与宽）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">3 5</span><br><span class="line">. . # . # </span><br><span class="line">. . . . . </span><br><span class="line"># . . # .</span><br></pre></td></tr></table></figure>
+<p>另外，给出<a href="https://shenyouran.github.io/projects/search/random.cpp">迷宫随机生成代码</a>。</p>
+<p>假如在这个迷宫中，只能上下左右地移动，那么我们可以通过$(1,1)\to (2,1)\to (2,2)\to (2,3)\to (2,4)\to (2,5)\to (3,5)$的路径抵达终点。</p>
+<p>我们可以把迷宫保存在一个二维字符数组$maps_{i,j}$中。对于这四个方向，横纵坐标会做相应的变化：</p>
+<ul>
+<li><p>上$\to (-1,0)$</p>
+</li>
+<li><p>下$\to (1,0)$</p>
+</li>
+<li><p>左$\to (0,-1)$</p>
+</li>
+<li><p>右$\to (0,1)$</p>
+</li>
+</ul>
+<p>当然，有的题目还可以使用左上、左下、右上、右下，横纵坐标这时会这样变化：</p>
+<ul>
+<li><p>左上$\to (-1,-1)$</p>
+</li>
+<li><p>左下$\to (1,-1)$</p>
+</li>
+<li><p>右上$\to (-1,1)$</p>
+</li>
+<li><p>右下$\to (1,1)$</p>
+</li>
+</ul>
+<p>为了方便表示，我们可以维护两个一维数组来保存这些横纵坐标的变化量，例如，如果只保存上下左右的话：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> dx[]=&#123;<span class="number">-1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>&#125;,dy[]=&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">-1</span>,<span class="number">1</span>&#125;;</span><br></pre></td></tr></table></figure>
+<p>假如八个方向都保存，则有：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> dx[]=&#123;<span class="number">-1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">-1</span>,<span class="number">1</span>,<span class="number">-1</span>,<span class="number">1</span>&#125;,dy[]=&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">-1</span>,<span class="number">1</span>,<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">1</span>,<span class="number">1</span>&#125;;</span><br></pre></td></tr></table></figure>
+<p>假设当前在地图中的位置为$(x,y)$，则我们可以进行一个循环，每一次在$(x,y)$的基础上增加$(dx_i,dy_i)$，得到新的位置$(nx,ny)=(x+dx_i,y+dy_i)$。当然，还得考虑边界问题和题目中的障碍等问题。</p>
+<p>接下来就粗略地复习一下两种搜索：</p>
+<h3 id="color-green-text-深度优先搜索"><a href="#color-green-text-深度优先搜索" class="headerlink" title="$\color{green}\text{深度优先搜索}$"></a>$\color{green}\text{深度优先搜索}$</h3><p>第一种搜索叫做深度优先搜索，简称深搜，英文缩写为$\text{DFS}$。$\text{DFS}$适用于找到<strong>第一个符合要求的答案</strong>。$\text{DFS}$被形象地称为不撞南墙不回头的<strong>一根筋</strong>。之前的地图问题就适合用该方法。</p>
+<p>该方法的模板：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(参数表)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(到达终点状态)</span><br><span class="line">    &#123;</span><br><span class="line">        输出或保存结果;</span><br><span class="line">        退出该层循环或整个程序;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(拓展方式)</span><br><span class="line">    &#123;</span><br><span class="line">    	<span class="keyword">if</span>(该步合法)</span><br><span class="line">        &#123;</span><br><span class="line">            修改、计算、标记;</span><br><span class="line">            dfs(新的参数表);</span><br><span class="line">            回溯;(可选)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="color-green-text-广度优先搜索"><a href="#color-green-text-广度优先搜索" class="headerlink" title="$\color{green}\text{广度优先搜索}$"></a>$\color{green}\text{广度优先搜索}$</h3><p>有深度，就有广度。广度优先搜索简称广搜，英文缩写为$\text{BFS}$。$\text{BFS}$适用于寻找<strong>最优解</strong>，个人认为要比$\text{DFS}$要好用一些，但是需要维护队列，而队列的维护可以有两种：</p>
+<ul>
+<li><p>数组维护</p>
+</li>
+<li><p>$\text{STL:queue}$ 维护</p>
+</li>
+</ul>
+<p>队列用数组维护一般来说效率会高一些，但是要控制空间大小，不宜过小（否则会$\text{RE}$），也不宜过大（否则会$\text{MLE}$）。</p>
+<p>而用$\text{STL}$中的$\text{queue}$的话，可以不考虑空间，但是时间会略慢一些（恐怕所有$\text{STL}$均是如此）。</p>
+<p>数组维护的模板：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">队列类型 q;<span class="comment">//一般来说队列用q表示</span></span><br><span class="line"><span class="keyword">int</span> front=<span class="number">1</span>,rear=<span class="number">1</span>;<span class="comment">//先定义头指针和尾指针，一开始一般都为1</span></span><br><span class="line"><span class="keyword">while</span>(front&lt;=rear)</span><br><span class="line">&#123;</span><br><span class="line">    队列类型 qf=q[front];<span class="comment">//为了方便，可以保存头指针的队列元素</span></span><br><span class="line">    <span class="keyword">for</span>(拓展方式)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(该步合法)</span><br><span class="line">        &#123;</span><br><span class="line">            修改、计算、标记;</span><br><span class="line">            q[++rear]=...;<span class="comment">//入队</span></span><br><span class="line">            <span class="keyword">if</span>(到达终点状态)</span><br><span class="line">            &#123;</span><br><span class="line">                进行重赋值或直接输出并退出;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    front++;<span class="comment">//头指针右移</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>$\text{queue}$维护的模板：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">queue</span>&lt;队列类型&gt;q;</span><br><span class="line"><span class="keyword">while</span>(q.size())<span class="comment">//只要队列中有元素就继续操作</span></span><br><span class="line">&#123;</span><br><span class="line">    队列类型 qf=q.front();<span class="comment">//q.front()为头指针元素</span></span><br><span class="line">    q.pop();<span class="comment">//直接弹出队头</span></span><br><span class="line">    <span class="keyword">for</span>(拓展方式)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(该步合法)</span><br><span class="line">        &#123;</span><br><span class="line">            修改、计算、标记;</span><br><span class="line">            q.push(...);<span class="comment">//入队</span></span><br><span class="line">            <span class="keyword">if</span>(到达终点状态)</span><br><span class="line">            &#123;</span><br><span class="line">                进行重赋值或直接输出并退出;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="color-red-text-代码实现"><a href="#color-red-text-代码实现" class="headerlink" title="$\color{red}\text{代码实现}$"></a>$\color{red}\text{代码实现}$</h2><p>接下来，我们来通过几个小题目来练练手。</p>
+<h3 id="color-green-text-No-1-全排列问题"><a href="#color-green-text-No-1-全排列问题" class="headerlink" title="$\color{green}\text{No.1 全排列问题}$"></a>$\color{green}\text{No.1 全排列问题}$</h3><p>难度：☆</p>
+<p><a href="https://www.luogu.com.cn/problem/P1706" target="_blank" rel="noopener">题目链接</a></p>
+<p>该题要求我们进行全排列，这是一道标准的$\text{DFS}$题目。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n,a[<span class="number">10</span>];<span class="comment">//a数组保存要输出的数据</span></span><br><span class="line"><span class="keyword">bool</span> flag[<span class="number">10</span>];<span class="comment">//保存该元素是否被输出过（不能重复）</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(k&gt;n)<span class="comment">//如果深度超过了n就直接输出</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)<span class="built_in">printf</span>(<span class="string">"%5d"</span>,a[i]);<span class="comment">//注意控制场宽</span></span><br><span class="line">        <span class="built_in">putchar</span>(<span class="string">'\n'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(!flag[i])<span class="comment">//如果没有被使用过就继续</span></span><br><span class="line">        &#123;</span><br><span class="line">            a[k]=i;<span class="comment">//赋值</span></span><br><span class="line">            flag[i]=<span class="literal">true</span>;<span class="comment">//标记使用过</span></span><br><span class="line">            dfs(k+<span class="number">1</span>);<span class="comment">//继续下层深搜</span></span><br><span class="line">            flag[i]=<span class="literal">false</span>;<span class="comment">//注意回溯！</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">    dfs(<span class="number">1</span>);<span class="comment">//从第一层开始</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="color-green-text-No-2-选数"><a href="#color-green-text-No-2-选数" class="headerlink" title="$\color{green}\text{No.2 选数}$"></a>$\color{green}\text{No.2 选数}$</h3><p>难度：★☆</p>
+<p><a href="https://www.luogu.com.cn/problem/P1036" target="_blank" rel="noopener">题目链接</a></p>
+<p>解决本题不仅要有会搜索的技能，还要有素数判断的概念。先来写判断素数的函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">p</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x&lt;<span class="number">2</span>)<span class="keyword">return</span> <span class="literal">false</span>;<span class="comment">//如果x&lt;2就说明不是素数</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i*i&lt;=x;i++)<span class="keyword">if</span>(x%i==<span class="number">0</span>)<span class="keyword">return</span> <span class="literal">false</span>;<span class="comment">//在2到x的算术平方根的范围内搜索，如果x能整除i就说明x有其他因数，即x不是素数</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;<span class="comment">//如果没有数能够整除就说明是素数</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们发现，该题的数据范围不大：</p>
+<blockquote>
+<p>$n,k$($1 \le n \le 20,k \lt n$)</p>
+</blockquote>
+<p>因此，我们可以用深搜来实现。思路是一样的，之前的全排列是输出数字，我们这里可以把数字看作是数组下标，然后判断和是否为素数即可。当然，这是从$n$个数中选$k$个数。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n,k,a[<span class="number">21</span>],x[<span class="number">21</span>],ans;</span><br><span class="line"><span class="comment">//a数组保存搜索得到的序号，x保存输入进来的数组</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">p</span><span class="params">(<span class="keyword">int</span> x)</span><span class="comment">//判断是否为素数</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x&lt;<span class="number">2</span>)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i*i&lt;=x;i++)<span class="keyword">if</span>(x%i==<span class="number">0</span>)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> kk)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(kk&gt;k)<span class="comment">//是否已经超过了需要搜索的数的数量</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> sum=<span class="number">0</span>;<span class="comment">//和一开始为0</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=k;i++)sum+=x[a[i]];<span class="comment">//把k个序号所对应的数加起来</span></span><br><span class="line">        <span class="keyword">if</span>(p(sum))ans++;<span class="comment">//是素数就加1</span></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=a[kk<span class="number">-1</span>]+<span class="number">1</span>;i&lt;=n;i++)<span class="comment">//这里不需要全排列，因为1,2,3和1,3,2的作用相同</span></span><br><span class="line">    &#123;</span><br><span class="line">        a[kk]=i;<span class="comment">//赋值</span></span><br><span class="line">        dfs(kk+<span class="number">1</span>);<span class="comment">//继续下一层搜索</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;k);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;x[i]);</span><br><span class="line">    dfs(<span class="number">1</span>);<span class="comment">//从第一层开始</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>,ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://shenyouran.github.io/P1010/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1035,177 +1186,10 @@ C=c^2-3bd
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://shenyouran.github.io/P2431/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="shenyouran">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="shenyouran's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/P2431/" class="post-title-link" itemprop="url">P2431 正妹吃月饼 题解</a>
-        </h2>
-
-        <div class="post-meta">
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-05-01 11:27:28" itemprop="dateCreated datePublished" datetime="2020-05-01T11:27:28+08:00">2020-05-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-07 11:57:08" itemprop="dateModified" datetime="2020-06-07T11:57:08+08:00">2020-06-07</time>
-              </span>
-
-          
-            <span id="/P2431/" class="post-meta-item leancloud_visitors" data-flag-title="P2431 正妹吃月饼 题解" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-              <span>2.7k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本题可以让我们联想到二进制。</p>
-<p>对于一个二进制数，我们可以根据数位值的性质求出它所对应的十进制数。</p>
-<p>例如：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">数位</th>
-<th style="text-align:center">$1$</th>
-<th style="text-align:center">$0$</th>
-<th style="text-align:center">$1$</th>
-<th style="text-align:center">$0$</th>
-<th style="text-align:center">$0$</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">表达式</td>
-<td style="text-align:center">$1\times2^4$</td>
-<td style="text-align:center">$0\times2^3$</td>
-<td style="text-align:center">$1\times2^2$</td>
-<td style="text-align:center">$0\times2^1$</td>
-<td style="text-align:center">$0\times2^0$</td>
-</tr>
-<tr>
-<td style="text-align:center">对应值</td>
-<td style="text-align:center">$16$</td>
-<td style="text-align:center">$0$</td>
-<td style="text-align:center">$4$</td>
-<td style="text-align:center">$0$</td>
-<td style="text-align:center">$0$</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>因此二进制数$10100$转换为十进制就是：$16+0+4+0+0=20$。</p>
-<p>在本题中，我们有一个十进制数，转为二进制就知道要吃哪几块蛋糕。以刚才的$20$为例：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">被操作数</th>
-<th style="text-align:center">表达式</th>
-<th style="text-align:center">余数</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">$20$</td>
-<td style="text-align:center">$20\div2=10$</td>
-<td style="text-align:center">$R0$</td>
-</tr>
-<tr>
-<td style="text-align:center">$10$</td>
-<td style="text-align:center">$10\div2=5$</td>
-<td style="text-align:center">$R0$</td>
-</tr>
-<tr>
-<td style="text-align:center">$5$</td>
-<td style="text-align:center">$5\div2=2$</td>
-<td style="text-align:center">$R1$</td>
-</tr>
-<tr>
-<td style="text-align:center">$2$</td>
-<td style="text-align:center">$2\div2=1$</td>
-<td style="text-align:center">$R0$</td>
-</tr>
-<tr>
-<td style="text-align:center">$1$</td>
-<td style="text-align:center">$1\div2=0$</td>
-<td style="text-align:center">$R1$</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>将刚才所得的所有余数连成一排并翻转，就能得到二进制数。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/P2431/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">&gt;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">&gt;</a>
   </nav>
 
 
@@ -1271,14 +1255,14 @@ C=c^2-3bd
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1314,12 +1298,12 @@ C=c^2-3bd
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">65k</span>
+    <span title="站点总字数">69k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">59 分钟</span>
+    <span title="站点阅读时长">1:03</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
