@@ -121,8 +121,7 @@
 </tbody>
 </table>
 </div>
-<p>$\color{green}\text{No.1 马的遍历}$</p>
-<p>难度：★★☆</p>
+<h3 id="color-green-text-No-1-马的遍历"><a href="#color-green-text-No-1-马的遍历" class="headerlink" title="$\color{green}\text{No.1 马的遍历}$"></a>$\color{green}\text{No.1 马的遍历}$</h3><p>难度：★★☆</p>
 <p><a href="https://www.luogu.com.cn/problem/P1443" target="_blank" rel="noopener">题目链接</a></p>
 <p>这道题可以用宽搜来做。马的方向增量数组略有不同，我们在处理完之后，在宽搜的过程中，标记马需要到达对应位置的步数。</p>
 <p>马的移动路径是本题的一个关键：</p>
