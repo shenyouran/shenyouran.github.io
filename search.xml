@@ -4,7 +4,7 @@
     <title>搜索入门</title>
     <url>/search/</url>
     <content><![CDATA[<h2 id="color-red-text-算法引入"><a href="#color-red-text-算法引入" class="headerlink" title="$\color{red}\text{算法引入}$"></a>$\color{red}\text{算法引入}$</h2><p>小时候，我们会玩一种迷宫游戏。下面就是非常简单的一种：</p>
-<p><img src="https://shenyouran.github.io/projects/search/maze.jpg" alt=""></p>
+<p><img src="https://shenyouran.github.io/projects/search/maze.jpg" width="70%" height="70%"></p>
 <p>$\color{grey}\text{（本文仅该图来源于网络）}$</p>
 <p>完成该迷宫可以有很多种方法：</p>
 <ul>
@@ -126,7 +126,7 @@
 <p><a href="https://www.luogu.com.cn/problem/P1443" target="_blank" rel="noopener">题目链接</a></p>
 <p>这道题可以用宽搜来做。马的方向增量数组略有不同，我们在处理完之后，在宽搜的过程中，标记马需要到达对应位置的步数。</p>
 <p>马的移动路径是本题的一个关键：</p>
-<p><img src="https://shenyouran.github.io/projects/search/knight.jpg" alt=""></p>
+<p><img src="https://shenyouran.github.io/projects/search/knight.jpg" width="70%" height="70%"></p>
 <p>通过上图，我们可以写出增量数组：</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> dx[]=&#123;<span class="number">-2</span>,<span class="number">-2</span>,<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>&#125;,dy[]=&#123;<span class="number">-1</span>,<span class="number">1</span>,<span class="number">-2</span>,<span class="number">2</span>,<span class="number">-2</span>,<span class="number">2</span>,<span class="number">-1</span>,<span class="number">1</span>&#125;;</span><br></pre></td></tr></table></figure>
 <h4 id="color-purple-text-Solution-1"><a href="#color-purple-text-Solution-1" class="headerlink" title="$\color{purple}\text{Solution 1}$"></a>$\color{purple}\text{Solution 1}$</h4><p>期望得分：$30$分</p>
