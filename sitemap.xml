@@ -2,6 +2,41 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://shenyouran.github.io/search/</loc>
+    
+    <lastmod>2020-07-03T13:12:50.254Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://shenyouran.github.io/code/search/index.html</loc>
+    
+    <lastmod>2020-07-03T13:11:59.149Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://shenyouran.github.io/code/search/maze/normal/bfs.html</loc>
+    
+    <lastmod>2020-07-03T12:59:32.577Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://shenyouran.github.io/code/search/maze/normal/dfs.html</loc>
+    
+    <lastmod>2020-07-03T12:59:30.605Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://shenyouran.github.io/code/search/word/dfs.html</loc>
+    
+    <lastmod>2020-07-03T12:59:06.054Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://shenyouran.github.io/code/search/bfs-queue.html</loc>
     
     <lastmod>2020-07-03T12:55:15.503Z</lastmod>
@@ -72,20 +107,6 @@
   </url>
   
   <url>
-    <loc>http://shenyouran.github.io/code/search/maze/normal/dfs.html</loc>
-    
-    <lastmod>2020-07-03T12:50:27.437Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://shenyouran.github.io/code/search/maze/normal/bfs.html</loc>
-    
-    <lastmod>2020-07-03T12:50:25.661Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://shenyouran.github.io/code/search/meteor-shower/dfs.html</loc>
     
     <lastmod>2020-07-03T12:50:22.372Z</lastmod>
@@ -100,13 +121,6 @@
   </url>
   
   <url>
-    <loc>http://shenyouran.github.io/code/search/word/dfs.html</loc>
-    
-    <lastmod>2020-07-03T12:50:17.376Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://shenyouran.github.io/code/search/dfs.html</loc>
     
     <lastmod>2020-07-03T12:50:09.706Z</lastmod>
@@ -117,13 +131,6 @@
     <loc>http://shenyouran.github.io/code/search/maze.html</loc>
     
     <lastmod>2020-07-03T12:50:07.535Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://shenyouran.github.io/search/</loc>
-    
-    <lastmod>2020-07-03T12:18:35.330Z</lastmod>
     
   </url>
   
