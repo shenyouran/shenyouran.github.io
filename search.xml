@@ -485,9 +485,9 @@ C=c^2-3bd
 ]]></content>
       <tags>
         <tag>题解</tag>
+        <tag>洛谷</tag>
         <tag>搜索</tag>
         <tag>DFS</tag>
-        <tag>洛谷</tag>
         <tag>BFS</tag>
         <tag>省选</tag>
       </tags>
@@ -773,8 +773,8 @@ C=c^2-3bd
 ]]></content>
       <tags>
         <tag>题解</tag>
-        <tag>搜索</tag>
         <tag>洛谷</tag>
+        <tag>搜索</tag>
         <tag>记忆化</tag>
       </tags>
   </entry>
@@ -1559,8 +1559,8 @@ y_2=kx_2+b
       <tags>
         <tag>题解</tag>
         <tag>队列</tag>
-        <tag>搜索</tag>
         <tag>洛谷</tag>
+        <tag>搜索</tag>
         <tag>BFS</tag>
       </tags>
   </entry>
@@ -1639,10 +1639,10 @@ y_2=kx_2+b
 ]]></content>
       <tags>
         <tag>题解</tag>
-        <tag>搜索</tag>
-        <tag>DFS</tag>
         <tag>洛谷</tag>
         <tag>NOIP</tag>
+        <tag>搜索</tag>
+        <tag>DFS</tag>
       </tags>
   </entry>
   <entry>
