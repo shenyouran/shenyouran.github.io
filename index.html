@@ -218,7 +218,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-27 15:08:19" itemprop="dateModified" datetime="2020-06-27T15:08:19+08:00">2020-06-27</time>
+                <time title="修改时间：2020-06-29 23:05:37" itemprop="dateModified" datetime="2020-06-29T23:05:37+08:00">2020-06-29</time>
               </span>
 
           
@@ -429,7 +429,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-26 10:56:25" itemprop="dateModified" datetime="2020-06-26T10:56:25+08:00">2020-06-26</time>
+                <time title="修改时间：2020-07-03 18:59:50" itemprop="dateModified" datetime="2020-07-03T18:59:50+08:00">2020-07-03</time>
               </span>
 
           
@@ -477,6 +477,110 @@
             </div>
           <!--/noindex-->
         
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://shenyouran.github.io/P2335/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="shenyouran">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="shenyouran's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/P2335/" class="post-title-link" itemprop="url">P2335 [SDOI2005]位图 题解</a>
+        </h2>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-03 18:57:59 / 修改时间：19:11:42" itemprop="dateCreated datePublished" datetime="2020-07-03T18:57:59+08:00">2020-07-03</time>
+            </span>
+
+          
+            <span id="/P2335/" class="post-meta-item leancloud_visitors" data-flag-title="P2335 [SDOI2005]位图 题解" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+              <span>3.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>这道题有多种解法，我们来逐一分析。</p>
+<h3 id="color-green-text-方法1：数组保存法"><a href="#color-green-text-方法1：数组保存法" class="headerlink" title="$\color{green}\text{方法1：数组保存法}$"></a>$\color{green}\text{方法1：数组保存法}$</h3><p>对于输入，我们不仅要输入屏幕，也要保存值为$1$，即白色的位置。我们把白色区域的每一个点都进行保存。</p>
+<p>输入以后，我们计算每一个点到所有白点的距离，取其最小并输出。如果该区域已经为白点，即值为$1$，则直接输出$0$即可。</p>
+<p>期望得分：$\color{52C410}100$</p>
+<p>时间消耗：$\color{52C410}354\text{ms}$</p>
+<p>程序过程：</p>
+<p><img src="https://shenyouran.github.io/projects/luogu/pic/P2335-1.jpeg" alt=""></p>
+<p>代码解决：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> dist(x_1,x_2,y_1,y_2)abs(x_1-x_2)+abs(y_1-y_2)<span class="comment">//定义两点之间的距离公式</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n,m,white[<span class="number">22501</span>][<span class="number">2</span>],cnt;<span class="comment">//white数组保存白点的坐标，cnt保存白点个数</span></span><br><span class="line"><span class="keyword">bool</span> screen[<span class="number">151</span>][<span class="number">151</span>];<span class="comment">//screen数组保存屏幕，白色为1，黑色为0</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>,x;j&lt;=m;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;x);</span><br><span class="line">            screen[i][j]=x;<span class="comment">//先给屏幕赋值</span></span><br><span class="line">            <span class="keyword">if</span>(x)<span class="comment">//如果是白色的就执行</span></span><br><span class="line">            &#123;</span><br><span class="line">                white[++cnt][<span class="number">0</span>]=i;</span><br><span class="line">                white[cnt][<span class="number">1</span>]=j;</span><br><span class="line">                <span class="comment">//点数+1，并且把这个点的坐标进行赋值</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>,dis;j&lt;=m;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(screen[i][j])<span class="comment">//特判白点可以节省时间</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"0 "</span>);<span class="comment">//不要漏掉空格</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            dis=<span class="number">0x3f3f3f3f</span>;<span class="comment">//最小距离默认要很大</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">1</span>;k&lt;=cnt;k++)dis=min(dis,dist(i,white[k][<span class="number">0</span>],j,white[k][<span class="number">1</span>]));<span class="comment">//每一次都取最小距离</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%d "</span>,dis);<span class="comment">//输出找到的最小距离</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">putchar</span>(<span class="string">'\n'</span>);<span class="comment">//换行用putchar更快一些</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="color-green-text-方法2：深度优先搜索"><a href="#color-green-text-方法2：深度优先搜索" class="headerlink" title="$\color{green}\text{方法2：深度优先搜索}$"></a>$\color{green}\text{方法2：深度优先搜索}$</h3><p>这道题用深搜确实不是很合适，但是我们可以通过这题训练我们的搜索能力。</p>
+<p>主要的思路就是由每一个黑点开始进行搜索，然后不停地朝$8$个方向拓展并保存最短路径即可。</p>
+<p>然而，我们发现，$\text{DFS}$对于解决这种题目来说，实在太慢，效率低下，只有开$\mathcal O2$才能过。</p>
+<p>对于搜索（包括深搜和广搜两种方法），拓展的内容如下：</p>
+<p><img src="https://shenyouran.github.io/projects/luogu/pic/P2335-2.jpeg" alt=""></p>
+<p>期望得分：$\color{52C410}90\,\to \,100(\mathcal O2)$</p>
+<p>时间消耗：$\color{FFC116}2.88\text{s}\color{52C410}\to 1.87\text{s}(\mathcal O2)$</p>
+<p>代码实现：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> dist(x_1,x_2,y_1,y_2)abs(x_1-x_2)+abs(y_1-y_2)</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n,m,dis,dx[]=&#123;<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>&#125;,dy[]=&#123;<span class="number">-1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">-1</span>,<span class="number">1</span>,<span class="number">-1</span>,<span class="number">0</span>,<span class="number">1</span>&#125;;<span class="comment">//方向增量数组下标有8个</span></span><br><span class="line"><span class="keyword">bool</span> screen[<span class="number">151</span>][<span class="number">151</span>],vis[<span class="number">151</span>][<span class="number">151</span>];<span class="comment">//screen数组保存屏幕，vis数组保存对应点是否被访问过</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y,<span class="keyword">int</span> d)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(screen[x][y])dis=d;<span class="comment">//如果是白点就更新最小距离</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">8</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> nx=x+dx[i],ny=y+dy[i];<span class="comment">//新拓展的点的坐标</span></span><br><span class="line">        <span class="keyword">if</span>(nx&lt;<span class="number">1</span>||ny&lt;<span class="number">1</span>||nx&gt;n||ny&gt;m||vis[nx][ny]||d+<span class="number">1</span>&gt;=dis)<span class="keyword">continue</span>;<span class="comment">//如果出了边界、已经被访问或者下一次的距离大于最小距离，就不进行该点的拓展</span></span><br><span class="line">        vis[nx][ny]=<span class="literal">true</span>;<span class="comment">//标记访问</span></span><br><span class="line">        dfs(nx,ny,d+dist(x,nx,y,ny));<span class="comment">//新的参数表：横坐标为nx，纵坐标为ny，距离为当前距离加上这两点的距离</span></span><br><span class="line">        vis[nx][ny]=<span class="literal">false</span>;<span class="comment">//回溯——标记未访问</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>,x;j&lt;=m;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;x);</span><br><span class="line">            screen[i][j]=x;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=m;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(screen[i][j])</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"0 "</span>);</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">memset</span>(vis,<span class="literal">false</span>,<span class="keyword">sizeof</span>(vis));<span class="comment">//先标记所有点为未访问过</span></span><br><span class="line">            dis=<span class="number">0x3f3f3f3f</span>;<span class="comment">//进行最小距离的初始化</span></span><br><span class="line">            dfs(i,j,<span class="number">0</span>);<span class="comment">//开始搜索，参数表：横纵坐标分别为i和j，初始距离为0</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%d "</span>,dis);<span class="comment">//输出最小距离</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">putchar</span>(<span class="string">'\n'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="color-green-text-方法3：广度优先搜索"><a href="#color-green-text-方法3：广度优先搜索" class="headerlink" title="$\color{green}\text{方法3：广度优先搜索}$"></a>$\color{green}\text{方法3：广度优先搜索}$</h3><p>$\text{BFS}$的特点是找最优解，所以可以完美地解决本题，而且是这些方法中耗时最少的。</p>
+<p>对于搜索（包括深搜和广搜两种方法），大体框架如下：</p>
+<p><img src="https://shenyouran.github.io/projects/luogu/pic/P2335-3.jpeg" alt=""></p>
+<p>期望得分：$\color{52C410}100$</p>
+<p>时间消耗：$\color{52C410}73\text{ms}$</p>
+<p>代码实现：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> dist(x_1,x_2,y_1,y_2)abs(x_1-x_2)+abs(y_1-y_2)</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n,m,dx[]=&#123;<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>&#125;,dy[]=&#123;<span class="number">-1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">-1</span>,<span class="number">1</span>,<span class="number">-1</span>,<span class="number">0</span>,<span class="number">1</span>&#125;;</span><br><span class="line"><span class="keyword">bool</span> screen[<span class="number">151</span>][<span class="number">151</span>],vis[<span class="number">151</span>][<span class="number">151</span>];</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> x,y;</span><br><span class="line">&#125;q[<span class="number">22501</span>];<span class="comment">//定义结构体类型队列</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>,x;j&lt;=m;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;x);</span><br><span class="line">            screen[i][j]=x;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>,front,rear,dis;j&lt;=m;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//定义front（队头），rear（队尾）和dis（最小距离）</span></span><br><span class="line">            <span class="keyword">if</span>(screen[i][j])<span class="comment">//特判</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"0 "</span>);</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            front=rear=<span class="number">1</span>;<span class="comment">//一开始队头队尾都为1</span></span><br><span class="line">            dis=<span class="number">0x3f3f3f3f</span>;</span><br><span class="line">            <span class="built_in">memset</span>(vis,<span class="literal">false</span>,<span class="keyword">sizeof</span>(vis));<span class="comment">//所有元素均为被访问过</span></span><br><span class="line">            q[<span class="number">1</span>]=(node)&#123;i,j&#125;;<span class="comment">//第一次的状态就是初始位置</span></span><br><span class="line">            <span class="keyword">while</span>(front&lt;=rear)</span><br><span class="line">            &#123;</span><br><span class="line">                node f=q[front];</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;<span class="number">8</span>;k++)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">int</span> nx=f.x+dx[k],ny=f.y+dy[k],d=dist(i,nx,j,ny);<span class="comment">//保存最小距离</span></span><br><span class="line">                    <span class="keyword">if</span>(nx&lt;<span class="number">1</span>||ny&lt;<span class="number">1</span>||nx&gt;n||ny&gt;m||d&gt;=dis||vis[nx][ny])<span class="keyword">continue</span>;<span class="comment">//如果出边界、距离大于等于最小距离或者被访问过就不再继续</span></span><br><span class="line">                    vis[nx][ny]=<span class="literal">true</span>;<span class="comment">//标记访问</span></span><br><span class="line">                    q[++rear]=(node)&#123;nx,ny&#125;;<span class="comment">//入队</span></span><br><span class="line">                    <span class="keyword">if</span>(screen[nx][ny])dis=d;<span class="comment">//赋值最小距离</span></span><br><span class="line">                &#125;</span><br><span class="line">                front++;<span class="comment">//队头指针加1</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%d "</span>,dis);<span class="comment">//输出最小距离</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">putchar</span>(<span class="string">'\n'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>总之，虽然一题有多解，但在实际应用中，设法找到最优的方法是至关重要的。</p>
+
       
     </div>
 
@@ -807,7 +911,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-07 11:47:58" itemprop="dateModified" datetime="2020-06-07T11:47:58+08:00">2020-06-07</time>
+                <time title="修改时间：2020-07-03 18:59:22" itemprop="dateModified" datetime="2020-07-03T18:59:22+08:00">2020-07-03</time>
               </span>
 
           
@@ -848,101 +952,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/JSOI96116/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://shenyouran.github.io/P1464/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="shenyouran">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="shenyouran's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/P1464/" class="post-title-link" itemprop="url">P1464 Function 题解</a>
-        </h2>
-
-        <div class="post-meta">
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-05-23 18:17:10" itemprop="dateCreated datePublished" datetime="2020-05-23T18:17:10+08:00">2020-05-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-07 11:48:22" itemprop="dateModified" datetime="2020-06-07T11:48:22+08:00">2020-06-07</time>
-              </span>
-
-          
-            <span id="/P1464/" class="post-meta-item leancloud_visitors" data-flag-title="P1464 Function 题解" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-              <span>2.6k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本题用到递归。递归我们都会打，所以得到代码：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> a,b,c;</span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">read</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> x=<span class="number">0</span>,f=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">char</span> ch=getchar();</span><br><span class="line">    <span class="keyword">while</span>(ch&lt;<span class="string">'0'</span>||ch&gt;<span class="string">'9'</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(ch==<span class="string">'-'</span>)f=<span class="number">-1</span>;</span><br><span class="line">        ch=getchar();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(ch&gt;=<span class="string">'0'</span>&amp;&amp;ch&lt;=<span class="string">'9'</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        x=(x&lt;&lt;<span class="number">1</span>)+(x&lt;&lt;<span class="number">3</span>)+(ch^<span class="number">48</span>);</span><br><span class="line">        ch=getchar();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> x*f;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> a,<span class="keyword">long</span> <span class="keyword">long</span> b,<span class="keyword">long</span> <span class="keyword">long</span> c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(a&lt;=<span class="number">0</span>||b&lt;=<span class="number">0</span>||c&lt;=<span class="number">0</span>)<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(a&gt;<span class="number">20</span>||b&gt;<span class="number">20</span>||c&gt;<span class="number">20</span>)<span class="keyword">return</span> f(<span class="number">20</span>,<span class="number">20</span>,<span class="number">20</span>);</span><br><span class="line">    <span class="keyword">if</span>(a&lt;b&amp;&amp;b&lt;c)<span class="keyword">return</span> f(a,b,c<span class="number">-1</span>)+f(a,b<span class="number">-1</span>,c<span class="number">-1</span>)-f(a,b<span class="number">-1</span>,c);</span><br><span class="line">    <span class="keyword">return</span> f(a<span class="number">-1</span>,b,c)+f(a<span class="number">-1</span>,b<span class="number">-1</span>,c)+f(a<span class="number">-1</span>,b,c<span class="number">-1</span>)-f(a<span class="number">-1</span>,b<span class="number">-1</span>,c<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        a=read(),b=read(),c=read();</span><br><span class="line">        <span class="keyword">if</span>(a==<span class="number">-1</span>&amp;&amp;b==<span class="number">-1</span>&amp;&amp;c==<span class="number">-1</span>)<span class="keyword">break</span>;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"w(%lld, %lld, %lld) = %d\n"</span>,a,b,c,f(a,b,c));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>然而却<code>TLE</code>了。题目中说$a=15,b=15,c=15$时，时间耗费会很长。输入之后，我等了$2$分钟都没有输出。于是我们必须使用记忆化搜索（题目已经提示了）。</p>
-<p>记忆化搜索的好处是，我们可以把答案存储进数组，这样就可以避免多余的计算。除了在$a,b,c$有一个大于$20$或有一个小于等于$0$时直接返回，其他情况都用数组保存。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/P1464/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1031,14 +1040,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1074,12 +1083,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">97k</span>
+    <span title="站点总字数">101k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:28</span>
+    <span title="站点阅读时长">1:31</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
