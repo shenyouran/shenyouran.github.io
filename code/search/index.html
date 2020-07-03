@@ -27,8 +27,8 @@
 <meta property="og:site_name" content="shenyouran&#39;s Blog">
 <meta property="og:description" content="$\color{red}\text{【搜索入门】资料}$这里整理了一些有关【搜索入门】的资料，供大家使用。 $\color{green}\text{博客入口}$入口$1$：个人博客 入口$2$：洛谷博客 $\color{green}\text{题目汇总}$配套题单     题目 难度 来源 算法     $\text{P1443 马的遍历}$ $\color{FFC116}\text{普及&#x2F;提高-">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-07-03T13:11:59.149Z">
-<meta property="article:modified_time" content="2020-07-03T13:11:59.149Z">
+<meta property="article:published_time" content="2020-07-03T13:13:49.588Z">
+<meta property="article:modified_time" content="2020-07-03T13:13:49.588Z">
 <meta property="article:author" content="shenyouran">
 <meta name="twitter:card" content="summary">
 
@@ -579,6 +579,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
