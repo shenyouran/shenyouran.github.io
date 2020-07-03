@@ -2,6 +2,125 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://shenyouran.github.io/code/search/maze.html</loc>
+    
+    <lastmod>2020-07-03T12:48:14.353Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://shenyouran.github.io/code/search/corn-maze/bfs.html</loc>
+    
+    <lastmod>2020-07-03T12:47:55.715Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://shenyouran.github.io/code/search/meteor-shower/bfs.html</loc>
+    
+    <lastmod>2020-07-03T12:47:17.061Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://shenyouran.github.io/code/search/meteor-shower/dfs.html</loc>
+    
+    <lastmod>2020-07-03T12:46:49.449Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://shenyouran.github.io/code/search/maze/upgrade/bfs.html</loc>
+    
+    <lastmod>2020-07-03T12:46:14.739Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://shenyouran.github.io/code/search/maze/upgrade/dfs-single.html</loc>
+    
+    <lastmod>2020-07-03T12:45:32.674Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://shenyouran.github.io/code/search/maze/upgrade/dfs-multiple.html</loc>
+    
+    <lastmod>2020-07-03T12:45:28.698Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://shenyouran.github.io/code/search/maze/normal/bfs.html</loc>
+    
+    <lastmod>2020-07-03T12:41:20.768Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://shenyouran.github.io/code/search/maze/normal/dfs.html</loc>
+    
+    <lastmod>2020-07-03T12:40:30.083Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://shenyouran.github.io/code/search/elevator/dfs.html</loc>
+    
+    <lastmod>2020-07-03T12:40:11.984Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://shenyouran.github.io/code/search/elevator/bfs.html</loc>
+    
+    <lastmod>2020-07-03T12:40:05.390Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://shenyouran.github.io/code/search/knight/dfs.html</loc>
+    
+    <lastmod>2020-07-03T12:40:00.397Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://shenyouran.github.io/code/search/knight/bfs.html</loc>
+    
+    <lastmod>2020-07-03T12:39:54.431Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://shenyouran.github.io/code/search/word/dfs.html</loc>
+    
+    <lastmod>2020-07-03T12:38:52.002Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://shenyouran.github.io/code/search/bfs-queue.html</loc>
+    
+    <lastmod>2020-07-03T12:26:04.082Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://shenyouran.github.io/code/search/bfs-arrary.html</loc>
+    
+    <lastmod>2020-07-03T12:25:43.959Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://shenyouran.github.io/code/search/dfs.html</loc>
+    
+    <lastmod>2020-07-03T12:25:19.612Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://shenyouran.github.io/search/</loc>
     
     <lastmod>2020-07-03T12:18:35.330Z</lastmod>
