@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://shenyouran.github.io/code/search/bfs-queue.html</loc>
+    
+    <lastmod>2020-07-03T12:55:15.503Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://shenyouran.github.io/code/search/bfs-array.html</loc>
+    
+    <lastmod>2020-07-03T12:55:09.314Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://shenyouran.github.io/code/search/corn-maze/bfs.html</loc>
     
     <lastmod>2020-07-03T12:50:52.521Z</lastmod>
@@ -89,20 +103,6 @@
     <loc>http://shenyouran.github.io/code/search/word/dfs.html</loc>
     
     <lastmod>2020-07-03T12:50:17.376Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://shenyouran.github.io/code/search/bfs-arrary.html</loc>
-    
-    <lastmod>2020-07-03T12:50:14.958Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://shenyouran.github.io/code/search/bfs-queue.html</loc>
-    
-    <lastmod>2020-07-03T12:50:12.988Z</lastmod>
     
   </url>
   
