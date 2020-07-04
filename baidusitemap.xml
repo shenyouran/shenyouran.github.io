@@ -2,7 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>http://shenyouran.github.io/search/</loc>
-    <lastmod>2020-07-03</lastmod>
+    <lastmod>2020-07-04</lastmod>
+  </url>  <url>
+    <loc>http://shenyouran.github.io/search-old/</loc>
+    <lastmod>2020-07-04</lastmod>
   </url>  <url>
     <loc>http://shenyouran.github.io/P2335/</loc>
     <lastmod>2020-07-03</lastmod>
@@ -21,9 +24,6 @@
   </url>  <url>
     <loc>http://shenyouran.github.io/JSOI96116/</loc>
     <lastmod>2020-07-03</lastmod>
-  </url>  <url>
-    <loc>http://shenyouran.github.io/search-old/</loc>
-    <lastmod>2020-06-24</lastmod>
   </url>  <url>
     <loc>http://shenyouran.github.io/P2715/</loc>
     <lastmod>2020-06-24</lastmod>
@@ -88,10 +88,10 @@
     <loc>http://shenyouran.github.io/P6056/</loc>
     <lastmod>2020-05-29</lastmod>
   </url>  <url>
-    <loc>http://shenyouran.github.io/CF38B/</loc>
+    <loc>http://shenyouran.github.io/CF530A/</loc>
     <lastmod>2020-05-29</lastmod>
   </url>  <url>
-    <loc>http://shenyouran.github.io/CF530A/</loc>
+    <loc>http://shenyouran.github.io/CF38B/</loc>
     <lastmod>2020-05-29</lastmod>
   </url>  <url>
     <loc>http://shenyouran.github.io/CF664A/</loc>
