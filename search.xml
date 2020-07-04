@@ -558,9 +558,9 @@ C=c^2-3bd
       </tags>
   </entry>
   <entry>
-    <title>搜索入门</title>
+    <title>搜索入门（旧版）</title>
     <url>/search-old/</url>
-    <content><![CDATA[<p>此为【搜索入门】原文，最终版本请在<a href="https://shenyouran.github.io/search/">这里</a>查看。</p>
+    <content><![CDATA[<p>此为【搜索入门】旧版原文，最终的根据此篇文章修订的版本请在<a href="https://shenyouran.github.io/search/">这里</a>查看。</p>
 <h2 id="color-red-text-算法引入"><a href="#color-red-text-算法引入" class="headerlink" title="$\color{red}\text{算法引入}$"></a>$\color{red}\text{算法引入}$</h2><p>小时候，我们会玩一种迷宫游戏。下面就是非常简单的一种：</p>
 <p><img src="https://shenyouran.github.io/projects/search/maze.jpg" alt=""></p>
 <p>完成该迷宫可以有很多种方法：</p>

@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://shenyouran.github.io/search-old/</loc>
+    
+    <lastmod>2020-07-04T14:26:18.809Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://shenyouran.github.io/tags/index.html</loc>
+    
+    <lastmod>2020-07-04T14:18:40.944Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://shenyouran.github.io/code/index.html</loc>
     
-    <lastmod>2020-07-04T14:18:05.365Z</lastmod>
+    <lastmod>2020-07-04T14:18:38.905Z</lastmod>
     
   </url>
   
@@ -23,20 +37,6 @@
   </url>
   
   <url>
-    <loc>http://shenyouran.github.io/tags/index.html</loc>
-    
-    <lastmod>2020-07-04T13:44:38.631Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://shenyouran.github.io/categories/index.html</loc>
-    
-    <lastmod>2020-07-04T13:44:32.857Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://shenyouran.github.io/P2873/</loc>
     
     <lastmod>2020-07-04T13:38:15.989Z</lastmod>
@@ -47,13 +47,6 @@
     <loc>http://shenyouran.github.io/search/</loc>
     
     <lastmod>2020-07-04T01:05:40.780Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://shenyouran.github.io/search-old/</loc>
-    
-    <lastmod>2020-07-04T01:04:24.973Z</lastmod>
     
   </url>
   
@@ -359,14 +352,14 @@
   </url>
   
   <url>
-    <loc>http://shenyouran.github.io/CF38B/</loc>
+    <loc>http://shenyouran.github.io/CF530A/</loc>
     
     <lastmod>2020-05-29T11:06:06.300Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://shenyouran.github.io/CF530A/</loc>
+    <loc>http://shenyouran.github.io/CF38B/</loc>
     
     <lastmod>2020-05-29T11:06:06.300Z</lastmod>
     
