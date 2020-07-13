@@ -182,6 +182,97 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://shenyouran.github.io/P1010/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="shenyouran">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="shenyouran's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/P1010/" class="post-title-link" itemprop="url">P1010 幂次方 题解</a>
+        </h2>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-06-04 21:36:35 / 修改时间：22:11:41" itemprop="dateCreated datePublished" datetime="2020-06-04T21:36:35+08:00">2020-06-04</time>
+            </span>
+
+          
+            <span id="/P1010/" class="post-meta-item leancloud_visitors" data-flag-title="P1010 幂次方 题解" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+              <span>992</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>本题的考察的是递归的基本写法。题目中列举了多个例子，它们都是把一个数$n(n\le 20000)$写成$2^a+(n-2^a)$的形式，然后对于这两项重复进行该操作。很容易发现，递归出口为$0,1,2$。</p>
+<p>我们以一个较小的数$21$为例：</p>
+<p><img src="https://shenyouran.github.io/projects/luogu/pic/P1010-1.png" alt=""></p>
+<p>观察上图可发现，每一次被操作数（以下简称$x$）都被分成了两个数的和，第一个数（以下简称$q$）是最大的不超过$2$的整数幂。</p>
+<p>为了方便，我们可以用记忆化搜索来保存每一个$x$对应的转换后的字符串形式，而$n\le 20000$，所以定义的方法是：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> f[<span class="number">20001</span>]=&#123;<span class="string">"0"</span>,<span class="string">"2(0)"</span>,<span class="string">"2"</span>&#125;;</span><br><span class="line"><span class="comment">//对于0来说，输出的内容就是0</span></span><br><span class="line"><span class="comment">//对于1来说，输出的内容应是2(0)</span></span><br><span class="line"><span class="comment">//对于2来说，输出的内容应是2，而不是2(2(0))</span></span><br></pre></td></tr></table></figure>
+<p>这其实就已经把递归出口对应的内容初始化完毕，方便后续调用，以节省程序运行时间。</p>
+<p>下面的导图可以直观地阐释该递归函数的判断和实现过程：</p>
+<p><img src="https://shenyouran.github.io/projects/luogu/pic/P1010-2.jpeg" alt=""></p>
+<p>我们顺着这个思路来编写函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">ans</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(f[x]!=<span class="string">""</span>)<span class="keyword">return</span> f[x];<span class="comment">//如果当前位置已有元素就直接返回</span></span><br><span class="line">    <span class="keyword">int</span> p=log2(x),q=<span class="number">1</span>&lt;&lt;p;<span class="comment">//p赋值为log2(x)，q赋值为2的p次方</span></span><br><span class="line">    <span class="keyword">if</span>(q==x)<span class="keyword">return</span> f[x]=<span class="string">"2("</span>+ans(p)+<span class="string">")"</span>;<span class="comment">//进行判断</span></span><br><span class="line">    <span class="keyword">return</span> f[x]=ans(q)+<span class="string">'+'</span>+ans(x-q);<span class="comment">//其他情况则执行这一句</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样一来，我们的主函数就很简短，只需要一个输入输出即可。</p>
+<p>代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="built_in">string</span> f[<span class="number">20001</span>]=&#123;<span class="string">"0"</span>,<span class="string">"2(0)"</span>,<span class="string">"2"</span>&#125;;</span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">ans</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(f[x]!=<span class="string">""</span>)<span class="keyword">return</span> f[x];</span><br><span class="line">    <span class="keyword">int</span> p=log2(x),q=<span class="number">1</span>&lt;&lt;p;</span><br><span class="line">    <span class="keyword">if</span>(q==x)<span class="keyword">return</span> f[x]=<span class="string">"2("</span>+ans(p)+<span class="string">")"</span>;</span><br><span class="line">    <span class="keyword">return</span> f[x]=ans(q)+<span class="string">'+'</span>+ans(x-q);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;ans(n);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://shenyouran.github.io/P6581/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1117,107 +1208,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://shenyouran.github.io/CF664A/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="shenyouran">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="shenyouran's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/CF664A/" class="post-title-link" itemprop="url">CF664A Complicated GCD 题解</a>
-        </h2>
-
-        <div class="post-meta">
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-09 17:45:01" itemprop="dateCreated datePublished" datetime="2020-03-09T17:45:01+08:00">2020-03-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-29 19:06:06" itemprop="dateModified" datetime="2020-05-29T19:06:06+08:00">2020-05-29</time>
-              </span>
-
-          
-            <span id="/CF664A/" class="post-meta-item leancloud_visitors" data-flag-title="CF664A Complicated GCD 题解" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-              <span>1.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>看到$GCD$，本蒟蒻两眼放光，立刻点进去了。</p>
-<p>然而$1\le a\le b\le 10^{100}$——高精度？不过本蒟蒻发现，要求$[a,b]$区间内所有整数的$GCD$。</p>
-<p>为了简化代码，我们不妨假设任意差为$k(k&gt;0)$的正整数都互质。设一个数为$x(x&gt;0)$，则另一个为$x+k$。</p>
-<p>假设$x$与$x+k$有最大公约数$p(p&gt;1)$。则$x\bmod p=0,(x+k)\bmod p=0$。因此，这时必定满足$k\bmod p=0$。所以$k&gt;=p$，满足这个的时候$x,x+k$有最大公约数。</p>
-<p>因此$k &lt; p$的时候，$x,x+k$互质。因为$p&gt;1$，所以$k&lt;=1$的时候，满足$x,x+k$互质。因为$k&gt;0$，所以$k=1$。</p>
-<p>所以$x,x+1$互质。</p>
-<p>得到这个结论之后，我们可以用反证法进一步验证：</p>
-<p>设这两个数分别为$n,n+1$。</p>
-<p>假设$n,n+1$有最大公约数$p(p&gt;1)$。这个时候设$n=ap,n+1=bp$。则$ap+1=bp$。所以$bp-ap=1$。所以$p(b-a)=1$。因此只能有$p=b-a=1$。而我们假设$p&gt;1$，所以假设不成立。</p>
-<p>因此$n,n+1$互质。</p>
-<p>那么，对于$n,n+1,…,n+k$的最大公约数，那就只能是$1,n+2,…,n+k$的最大公约数，以此类推，也就只能是$1$了。当然，有可能会出现输入的两个数相等的情况，这个时候就要输出这两个数中的任意一个。</p>
-<p>推理的过程较长，但是代码却很容易理解。</p>
-<p>$C$语言（<del>较长</del>）：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">char</span> a[<span class="number">110</span>],b[<span class="number">110</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">len</span><span class="params">(<span class="keyword">char</span> x[])</span><span class="comment">//返回字符数组长度</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(;x[i];i++);</span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">(<span class="keyword">char</span> x[],<span class="keyword">char</span> y[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(len(x)-len(y))<span class="keyword">return</span> <span class="number">0</span>;<span class="comment">//长度不相等直接返回0</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;x[i];i++)<span class="keyword">if</span>(x[i]-y[i])<span class="keyword">return</span> <span class="number">0</span>;<span class="comment">//有一位不相等就返回0</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;<span class="comment">//否则返回1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%s%s"</span>,a,b);<span class="comment">//输入</span></span><br><span class="line">    <span class="keyword">if</span>(check(a,b))<span class="built_in">printf</span>(<span class="string">"%s"</span>,a);<span class="comment">//a与b内容完全相同就输出a</span></span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"1"</span>);<span class="comment">//否则输出1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>$C++$（直接法）：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> a,b;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;a&gt;&gt;b;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;a==b?a:<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>$C++$（数组赋值法）：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> a,b,x[]=&#123;<span class="string">"1"</span>,<span class="string">""</span>&#125;;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;a&gt;&gt;b;</span><br><span class="line">    x[<span class="number">1</span>]=a;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;x[a==b?<span class="number">1</span>:<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1287,7 +1277,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1330,12 +1320,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">110k</span>
+    <span title="站点总字数">111k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:40</span>
+    <span title="站点阅读时长">1:41</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
