@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"shenyouran.github.io","root":"/","scheme":"Muse","version":"8.0.0-rc.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172##include&lt;bits&#x2F;stdc++.h&gt;#define ll long long#define ld long">
+  <meta name="description" content="对于一个$n$位密码锁，由于首位是$0$是被允许的，所以每一位都可以是$0 \to 9$内的任意一个数，即$10$种可能性。因此，总情况数有$10^n$种。 根据二分的性质可知，如果我们要在$m$个数内进行猜测，那么总次数为$\lceil log_2(m) \rceil$。这里$m&#x3D;10^n$。 所以最少保证一定能猜对的次数为$\lceil log_2(10^n) \rceil$。但题目中说有可能">
 <meta property="og:type" content="website">
-<meta property="og:title" content="U121671 密码锁 4 STD代码">
-<meta property="og:url" content="http://shenyouran.github.io/code/private/lock/4/std.html">
+<meta property="og:title" content="U121661 密码锁 3 题解">
+<meta property="og:url" content="http://shenyouran.github.io/code/private/lock/3/report.html">
 <meta property="og:site_name" content="shenyouran&#39;s Blog">
-<meta property="og:description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172##include&lt;bits&#x2F;stdc++.h&gt;#define ll long long#define ld long">
+<meta property="og:description" content="对于一个$n$位密码锁，由于首位是$0$是被允许的，所以每一位都可以是$0 \to 9$内的任意一个数，即$10$种可能性。因此，总情况数有$10^n$种。 根据二分的性质可知，如果我们要在$m$个数内进行猜测，那么总次数为$\lceil log_2(m) \rceil$。这里$m&#x3D;10^n$。 所以最少保证一定能猜对的次数为$\lceil log_2(10^n) \rceil$。但题目中说有可能">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-07-15T08:21:38.165Z">
-<meta property="article:modified_time" content="2020-07-15T08:21:38.165Z">
+<meta property="article:published_time" content="2020-07-15T03:18:52.540Z">
+<meta property="article:modified_time" content="2020-07-15T03:18:52.540Z">
 <meta property="article:author" content="shenyouran">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://shenyouran.github.io/code/private/lock/4/std">
+<link rel="canonical" href="http://shenyouran.github.io/code/private/lock/3/report">
 
 
 <script id="page-configurations">
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>U121671 密码锁 4 STD代码 | shenyouran's Blog
+  <title>U121661 密码锁 3 题解 | shenyouran's Blog
 </title>
   
 
@@ -192,7 +192,7 @@
     <div class="post-block" lang="zh-CN">
       <header class="post-header">
 
-<h1 class="post-title" itemprop="name headline">U121671 密码锁 4 STD代码
+<h1 class="post-title" itemprop="name headline">U121661 密码锁 3 题解
 </h1>
 
 <div class="post-meta">
@@ -202,8 +202,8 @@
             <li><a href="/code/">CODE</a></li>
             <li><a href="/code/private/">PRIVATE</a></li>
             <li><a href="/code/private/lock/">LOCK</a></li>
-            <li><a href="/code/private/lock/4/">4</a></li>
-            <li>STD</li>
+            <li><a href="/code/private/lock/3/">3</a></li>
+            <li>REPORT</li>
           
   </ul>
 
@@ -215,7 +215,11 @@
       
       
       <div class="post-body">
-          <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">#<span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ld long double</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line">ld a,b,S,pi=<span class="built_in">acos</span>(<span class="number">-1</span>);</span><br><span class="line">ll c,d,e=<span class="number">0x3f3f3f3f</span>,f,g,h;</span><br><span class="line"><span class="built_in">string</span> n[<span class="number">5001</span>];</span><br><span class="line"><span class="function">ll <span class="title">qpow</span><span class="params">(ll x,ll y,ll k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(k==<span class="number">1</span>)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(!y)<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    ll t=<span class="number">1</span>,z=x;</span><br><span class="line">    <span class="keyword">while</span>(y)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(y&amp;<span class="number">1</span>)t=t*z%k;</span><br><span class="line">        z=z*z%k;</span><br><span class="line">        y&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> t;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">ll <span class="title">ROUND</span><span class="params">(ld a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (ll)(a+<span class="number">0.5</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">itos</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> s=<span class="string">""</span>;</span><br><span class="line">    <span class="keyword">while</span>(x)</span><br><span class="line">    &#123;</span><br><span class="line">        s+=x%<span class="number">10</span>+<span class="number">48</span>;</span><br><span class="line">        x/=<span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    reverse(s.begin(),s.end());</span><br><span class="line">    s.insert(<span class="number">0</span>,<span class="number">3</span>-s.size(),<span class="string">'0'</span>);</span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cost</span><span class="params">(<span class="keyword">char</span> a,<span class="keyword">char</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x=a^<span class="number">48</span>,y=b^<span class="number">48</span>;</span><br><span class="line">    <span class="keyword">if</span>(x&gt;y)swap(x,y);</span><br><span class="line">    <span class="keyword">return</span> min(y-x,x-y+<span class="number">10</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dif</span><span class="params">(<span class="built_in">string</span> a,<span class="built_in">string</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> s=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;a[i];i++)s+=cost(a[i],b[i]);</span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%Lf%Lf"</span>,&amp;a,&amp;b);</span><br><span class="line">    S=<span class="number">0.6</span>*b*b+<span class="number">0.25</span>*pi*(<span class="number">4</span>*a*b<span class="number">-4</span>*a*a);</span><br><span class="line">    c=(ll)(<span class="built_in">floor</span>(<span class="number">0.1</span>*S));</span><br><span class="line">    d=min(ROUND(<span class="number">1.9</span>*c*c),ROUND(<span class="built_in">ceil</span>(<span class="number">0.2</span>*c)*<span class="number">9</span>*c));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=c&lt;&lt;<span class="number">1</span>;i++)n[i]=itos(qpow(<span class="number">2</span>,i<span class="number">-1</span>,<span class="number">1000</span>)*d%<span class="number">1000</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">999</span>,ee;i;i--)</span><br><span class="line">    &#123;</span><br><span class="line">        ee=<span class="number">0</span>;</span><br><span class="line">        <span class="built_in">string</span> s=itos(i);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=c&lt;&lt;<span class="number">1</span>;j++)ee+=dif(n[j],s);</span><br><span class="line">        <span class="keyword">if</span>(ee&lt;e)</span><br><span class="line">        &#123;</span><br><span class="line">            e=ee;</span><br><span class="line">            f=i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    g=(ll)(<span class="number">1.0</span>*d/(<span class="built_in">floor</span>(<span class="number">0.1</span>*f)))+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(g&gt;(c&lt;&lt;<span class="number">1</span>))g=<span class="number">114514</span>&lt;&lt;<span class="number">10</span>;</span><br><span class="line">    h=qpow(f,max(f+g<span class="number">-10007</span>,<span class="number">121980L</span>L),<span class="number">998244353</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%.8LF\n%lld\n%lld %lld\n%lld\n"</span>,S,d,e,f,h);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p>对于一个$n$位密码锁，由于首位是$0$是被允许的，所以每一位都可以是$0 \to 9$内的任意一个数，即$10$种可能性。因此，总情况数有$10^n$种。</p>
+<p>根据二分的性质可知，如果我们要在$m$个数内进行猜测，那么总次数为$\lceil log_2(m) \rceil$。这里$m=10^n$。</p>
+<p>所以最少保证一定能猜对的次数为$\lceil log_2(10^n) \rceil$。但题目中说有可能猜不出，所以减$1$即可。</p>
+<p>故答案为$\lceil log_2(10^n) \rceil-1$。</p>
+
       </div>
       
       
@@ -227,8 +231,8 @@
             <li><a href="/code/">CODE</a></li>
             <li><a href="/code/private/">PRIVATE</a></li>
             <li><a href="/code/private/lock/">LOCK</a></li>
-            <li><a href="/code/private/lock/4/">4</a></li>
-            <li>STD</li>
+            <li><a href="/code/private/lock/3/">3</a></li>
+            <li>REPORT</li>
           
   </ul>
 
@@ -239,6 +243,7 @@
 
           </div>
           
+    <div class="comments" id="gitalk-container"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -495,9 +500,81 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '2eba7b4acb02b8d27315',
+      clientSecret: '6ae5b211db8ac3bc50e2baaa12ac9d9d67864a9b',
+      repo        : 'blog-comments',
+      owner       : 'shenyouran',
+      admin       : ['shenyouran'],
+      id          : 'a848126899b9444fb2409482e6e9228d',
+        language: '',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>
