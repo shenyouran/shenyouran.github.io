@@ -31,8 +31,8 @@
 <meta property="og:image" content="http://shenyouran.github.io/code/private/lock/4/WA.jpg">
 <meta property="og:image" content="http://shenyouran.github.io/code/private/lock/4/TLE.jpg">
 <meta property="og:image" content="http://shenyouran.github.io/code/private/lock/4/AC.jpg">
-<meta property="article:published_time" content="2020-07-15T08:23:05.446Z">
-<meta property="article:modified_time" content="2020-07-15T08:23:05.446Z">
+<meta property="article:published_time" content="2020-07-15T09:13:16.402Z">
+<meta property="article:modified_time" content="2020-07-15T09:13:16.402Z">
 <meta property="article:author" content="shenyouran">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://shenyouran.github.io/code/private/lock/4/lock.jpg">
@@ -259,10 +259,12 @@ x \bmod k(x^2 \bmod k)^{\frac{y-1}{2}} \bmod k&\text{y is odd}
 <p>这显然是不符合题意，只能拿到$98$分，在第$6$个测试点上会扣掉$2$分（$g$值错误导致$h$不正确）：</p>
 <p><img src="WA.jpg" alt=""></p>
 <h3 id="color-red-text-子问题5"><a href="#color-red-text-子问题5" class="headerlink" title="$\color{red}\text{子问题5}$"></a>$\color{red}\text{子问题5}$</h3><p>套用快速幂公式求解即可。</p>
-<p>另外，本题如果不用快速幂，那么只能拿$40$分，结果如下：</p>
+<p>总之，本题的细节很多，而且答案一环扣着一环，一错就到底。</p>
+<p>另外，本题如果根本不用快速幂，那么只能拿$40$分，结果如下：</p>
 <p><img src="TLE.jpg" alt=""></p>
 <p>使用<a href="std">这个代码</a>可以拿到全分，即：</p>
 <p><img src="AC.jpg" alt=""></p>
+<p>如果对$\text{Special Judge}$有疑问，可以点击<a href="spj">这里</a>。</p>
 
       </div>
       
