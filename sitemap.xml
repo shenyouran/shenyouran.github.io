@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://shenyouran.github.io/code/private/summer2020.html</loc>
+    
+    <lastmod>2020-07-17T00:03:25.186Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://shenyouran.github.io/code/private/index.html</loc>
+    
+    <lastmod>2020-07-17T00:02:07.087Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://shenyouran.github.io/code/private/lock/index.html</loc>
+    
+    <lastmod>2020-07-16T23:57:48.546Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://shenyouran.github.io/code/private/lock/2/report.html</loc>
+    
+    <lastmod>2020-07-16T23:56:11.748Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://shenyouran.github.io/code/private/chess/check/report.html</loc>
     
     <lastmod>2020-07-16T23:52:59.026Z</lastmod>
@@ -26,13 +54,6 @@
     <loc>http://shenyouran.github.io/code/private/lock/1/bfs-py.html</loc>
     
     <lastmod>2020-07-16T01:48:32.776Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://shenyouran.github.io/code/private/index.html</loc>
-    
-    <lastmod>2020-07-16T01:35:36.316Z</lastmod>
     
   </url>
   
