@@ -193,6 +193,107 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://shenyouran.github.io/P2715/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="shenyouran">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="shenyouran's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/P2715/" class="post-title-link" itemprop="url">P2715 ccj与zrz之在回家的路上 题解</a>
+        </h2>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-23 22:51:34" itemprop="dateCreated datePublished" datetime="2020-06-23T22:51:34+08:00">2020-06-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-24 18:18:06" itemprop="dateModified" datetime="2020-06-24T18:18:06+08:00">2020-06-24</time>
+              </span>
+
+          
+            <span id="/P2715/" class="post-meta-item leancloud_visitors" data-flag-title="P2715 ccj与zrz之在回家的路上 题解" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+              <span>3.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>这道题用到了字符串的处理和数学中等式的性质的运用。为了方便，我们可以使用$\text{string}$来实现。</p>
+<p>下面是本题的大体框架：</p>
+<p><img src="https://shenyouran.github.io/projects/luogu/pic/P2715.jpeg" alt=""></p>
+<p>首先，我们要实现基本的输入。假设字符串为$s$，则：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="literal">true</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">char</span> ch=getchar();<span class="comment">//读入单个字符ch</span></span><br><span class="line">    <span class="comment">//也可以执行scanf("%c",&amp;ch);或者cin&gt;&gt;ch;</span></span><br><span class="line">    <span class="keyword">if</span>(ch==<span class="string">'\n'</span>)<span class="keyword">break</span>;<span class="comment">//如果读到了换行符就结束循环</span></span><br><span class="line">    <span class="keyword">if</span>(ch!=<span class="string">' '</span>)s+=ch;<span class="comment">//如果不为空格就拼接到字符串后端</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是，上述的三种输入方式都会超时。其中<code>cin</code>超时最严重，所以还是直接单行输入比较高效：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">getline(<span class="built_in">cin</span>,s);<span class="comment">//读入整行字符串</span></span><br></pre></td></tr></table></figure>
+<p>接着，我们应当剔除字符串中的空格。具体的操作可以利用$\text{string:erase}$：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;s[i];)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(s[i]==<span class="string">' '</span>)s.erase(i,<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">else</span> i++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">对于该段代码的简单解释：</span></span><br><span class="line"><span class="comment">s.erase(i,1);每一次去除i位置的1个字符，然后将后面字符往前推。</span></span><br><span class="line"><span class="comment">例如，有一个字符串：</span></span><br><span class="line"><span class="comment">1  +2=?</span></span><br><span class="line"><span class="comment">（1后面有2个空格）</span></span><br><span class="line"><span class="comment">那么，当i=0时，s[i]为1，不删除字符。</span></span><br><span class="line"><span class="comment">当i=1时，s[i]为空格，将其删除。</span></span><br><span class="line"><span class="comment">删除后，后面的所有内容紧接着往前推。</span></span><br><span class="line"><span class="comment">此时如果i++的话，那么会指向第二个空格右边的内容。</span></span><br><span class="line"><span class="comment">这时，我们就遗漏了一个空格。</span></span><br><span class="line"><span class="comment">因此，只有在当前字符为非空格的时候，我们才需要将i加1。</span></span><br><span class="line"><span class="comment">所以for循环的第三个语句是空语句。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>这样，我们就实现了空格的处理。接着我们需要找到运算符的位置。由于只有加减乘除中的一个，因此我们可以通过这样的函数来寻找：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pos</span><span class="params">()</span><span class="comment">//返回的是第一个出现的四个运算符</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a[<span class="number">4</span>]=&#123;s.find(<span class="string">'+'</span>),s.find(<span class="string">'-'</span>),s.find(<span class="string">'*'</span>),s.find(<span class="string">'/'</span>)&#125;;</span><br><span class="line">    <span class="comment">//find函数在字符串中找到另一个字符（串）第一次出现的位置，找不到则返回string::npos</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(a[i]==<span class="built_in">string</span>::npos)<span class="keyword">continue</span>;<span class="comment">//找不到就继续找</span></span><br><span class="line">        <span class="keyword">return</span> a[i];<span class="comment">//找得到就返回</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;<span class="comment">//多余，但增加是为了防止编译提醒</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后，将字符串拆分成三段，分别是三个被操作数（包括一个问号）。具体可以利用$\text{string:substr}$来实现。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a=pos();<span class="comment">//调用之前的函数，让a为运算符（加减乘除中的一个）所在位置</span></span><br><span class="line">b=s.find(<span class="string">'='</span>);<span class="comment">//把b赋值为=号的位置</span></span><br><span class="line">s1=s.substr(<span class="number">0</span>,a);</span><br><span class="line"><span class="comment">//在s中取子串，从0开始，长度为a</span></span><br><span class="line">s2=s.substr(a+<span class="number">1</span>,b-a<span class="number">-1</span>);</span><br><span class="line"><span class="comment">//同样在s中提取，从位置a+1开始，长度为b-a-1</span></span><br><span class="line">s3=s.substr(b+<span class="number">1</span>);</span><br><span class="line"><span class="comment">//特别地，如果只有一个参数，那么默认从该位置取到结束</span></span><br></pre></td></tr></table></figure>
+<p>再然后，我们需要进行逐一的双重判断——外层是运算符，内层是问号的位置：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ans保存答案，x、y、z分别表示s1、上</span></span><br><span class="line">和s3转换为数字的结果</span><br><span class="line"><span class="keyword">switch</span>(s[a])<span class="comment">//s[a]表示运算符</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'+'</span>: <span class="comment">//加号</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(s1==<span class="string">"?"</span>)ans=z-y;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(s2==<span class="string">"?"</span>)ans=z-x;</span><br><span class="line">        <span class="keyword">else</span> ans=x+y;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">        <span class="comment">//注意switch语句每一个case末尾要break</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'-'</span>: <span class="comment">//减号</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(s1==<span class="string">"?"</span>)ans=y+z;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(s2==<span class="string">"?"</span>)ans=x-z;</span><br><span class="line">        <span class="keyword">else</span> ans=x-y;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'*'</span>: <span class="comment">//乘号</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(s1==<span class="string">"?"</span>)ans=<span class="number">1.0</span>*z/y;<span class="comment">//强制转换为浮点</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(s2==<span class="string">"?"</span>)ans=<span class="number">1.0</span>*z/x;</span><br><span class="line">        <span class="keyword">else</span> ans=x*y;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'/'</span>: <span class="comment">//除号</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(s1==<span class="string">"?"</span>)ans=y*z;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(s2==<span class="string">"?"</span>)ans=<span class="number">1.0</span>*x/z;</span><br><span class="line">        <span class="keyword">else</span> ans=<span class="number">1.0</span>*x/y;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后，我们只需要格式化输出$ans$即可，保留位数为$2$。</p>
+<p>完整代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="built_in">string</span> s,s1,s2,s3;</span><br><span class="line"><span class="keyword">int</span> a,b,x,y,z;</span><br><span class="line"><span class="keyword">double</span> ans;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pos</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a[<span class="number">4</span>]=&#123;s.find(<span class="string">'+'</span>),s.find(<span class="string">'-'</span>),s.find(<span class="string">'*'</span>),s.find(<span class="string">'/'</span>)&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(a[i]==<span class="built_in">string</span>::npos)<span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">return</span> a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="built_in">string</span> s)</span><span class="comment">//实现了将字符串转换为数字</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;s[i];i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(!<span class="built_in">isdigit</span>(s[i]))<span class="keyword">break</span>;<span class="comment">//不是数字就结束循环</span></span><br><span class="line">        x=(x&lt;&lt;<span class="number">3</span>)+(x&lt;&lt;<span class="number">1</span>)+(s[i]^<span class="number">48</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    getline(<span class="built_in">cin</span>,s);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;s[i];)<span class="comment">//去空格</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(s[i]==<span class="string">' '</span>)s.erase(i,<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">else</span> i++;</span><br><span class="line">    &#125;</span><br><span class="line">    a=pos();<span class="comment">//找运算符</span></span><br><span class="line">    b=s.find(<span class="string">'='</span>);<span class="comment">//找等号</span></span><br><span class="line">    s1=s.substr(<span class="number">0</span>,a);</span><br><span class="line">    s2=s.substr(a+<span class="number">1</span>,b-a<span class="number">-1</span>);</span><br><span class="line">    s3=s.substr(b+<span class="number">1</span>);<span class="comment">//取子串</span></span><br><span class="line">    x=f(s1);</span><br><span class="line">    y=f(s2);</span><br><span class="line">    z=f(s3);<span class="comment">//字符串转换为数字</span></span><br><span class="line">    <span class="keyword">switch</span>(s[a])<span class="comment">//判断</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">'+'</span>:</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(s1==<span class="string">"?"</span>)ans=z-y;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(s2==<span class="string">"?"</span>)ans=z-x;</span><br><span class="line">            <span class="keyword">else</span> ans=x+y;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">'-'</span>:</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(s1==<span class="string">"?"</span>)ans=y+z;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(s2==<span class="string">"?"</span>)ans=x-z;</span><br><span class="line">            <span class="keyword">else</span> ans=x-y;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">'*'</span>:</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(s1==<span class="string">"?"</span>)ans=<span class="number">1.0</span>*z/y;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(s2==<span class="string">"?"</span>)ans=<span class="number">1.0</span>*z/x;</span><br><span class="line">            <span class="keyword">else</span> ans=x*y;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">'/'</span>:</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(s1==<span class="string">"?"</span>)ans=y*z;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(s2==<span class="string">"?"</span>)ans=<span class="number">1.0</span>*x/z;</span><br><span class="line">            <span class="keyword">else</span> ans=<span class="number">1.0</span>*x/y;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%.2lf"</span>,ans);<span class="comment">//保留两位小数输出ans</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://shenyouran.github.io/P1010/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1018,207 +1119,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://shenyouran.github.io/P5732/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="shenyouran">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="shenyouran's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/P5732/" class="post-title-link" itemprop="url">P5732 【深基5.习7】杨辉三角 题解</a>
-        </h2>
-
-        <div class="post-meta">
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-15 21:56:50" itemprop="dateCreated datePublished" datetime="2020-03-15T21:56:50+08:00">2020-03-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-29 19:07:00" itemprop="dateModified" datetime="2020-05-29T19:07:00+08:00">2020-05-29</time>
-              </span>
-
-          
-            <span id="/P5732/" class="post-meta-item leancloud_visitors" data-flag-title="P5732 【深基5.习7】杨辉三角 题解" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-              <span>235</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>我们都知道杨辉三角是一个非常重要的数学图形。</p>
-<p>它的主要性质：</p>
-<ul>
-<li>每一行的第一个元素和最后一个元素均为$1$。</li>
-<li>第$i$行$(i&gt;0)$的元素和为$2^{n-1}$。</li>
-<li>第$i$行第$j$列（$i&gt;1,j\le i$）的元素等于第$i-1$行第$j-1$列和第$i-1$行第$j$列之和。</li>
-</ul>
-<p>转换成数学语言：</p>
-<script type="math/tex; mode=display">a(i,1)=a(i,i)=1(i>0)</script><script type="math/tex; mode=display">\sum_{j=1}^{i}a(i,j)=2^{i-1}(i>0)</script><script type="math/tex; mode=display">a(i,j)=a(i-1,j-1)+a(i-1,j)(i>1,1<j<=i)</script><p>当然，第二个结论在这里貌似没有多大用处。而对于第一个结论，我们只需要初始化$a(1,1)=1$即可，因为假设我们要计算$a(2,1)$，则$a(2,1)=a(1,0)+a(1,1)$，而$a(1,0)$这个元素初始化是为$0$的（除非$a$数组不是全局变量）。因此不需要太多地进行初始化。</p>
-<p>因此我们可以得到代码：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> n,a[<span class="number">21</span>][<span class="number">21</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);<span class="comment">//输入</span></span><br><span class="line">    a[<span class="number">1</span>][<span class="number">1</span>]=<span class="number">1</span>;<span class="comment">//初始化</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=i;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            a[i][j]=a[i<span class="number">-1</span>][j<span class="number">-1</span>]+a[i<span class="number">-1</span>][j];<span class="comment">//进行计算</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=i;j++)<span class="built_in">printf</span>(<span class="string">"%d "</span>,a[i][j]);<span class="comment">//输出</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);<span class="comment">//换行</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>$\texttt{Python}$代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">n = int(input()) <span class="comment"># 输入n，类型为整数</span></span><br><span class="line">a = [[<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, n + <span class="number">1</span>)] <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">0</span>, n + <span class="number">1</span>)] <span class="comment"># 建立数组</span></span><br><span class="line">a[<span class="number">1</span>][<span class="number">1</span>] = <span class="number">1</span> <span class="comment"># 标记a[1][1]的值为1</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span>, n + <span class="number">1</span>): <span class="comment"># range(a,b)表示在[a,b)区间，不包括b</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>, i + <span class="number">1</span>):</span><br><span class="line">        a[i][j] = a[i<span class="number">-1</span>][j<span class="number">-1</span>] + a[i<span class="number">-1</span>][j] <span class="comment"># 递推</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, n + <span class="number">1</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>, i + <span class="number">1</span>):</span><br><span class="line">        print(a[i][j], end = <span class="string">' '</span>) <span class="comment"># end=''可以在输出内容后多输出一个字符串，不写end则默认为换行</span></span><br><span class="line">    print(<span class="string">''</span>) <span class="comment"># 输出空，因为默认输出后换行，所以达到了换行作用</span></span><br></pre></td></tr></table></figure>
-<p>$Updates:$</p>
-<p>$\text{2020.3.15 发布题解，Hello world!}$</p>
-<p>$\text{2020.4.11 增加return 0;语句。}$</p>
-<p>$\text{2020.5.29 修改代码和LaTex，并增加Python代码。}$</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://shenyouran.github.io/CF530A/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="shenyouran">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="shenyouran's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/CF530A/" class="post-title-link" itemprop="url">CF530A Quadratic equation 题解</a>
-        </h2>
-
-        <div class="post-meta">
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-11 09:20:13" itemprop="dateCreated datePublished" datetime="2020-03-11T09:20:13+08:00">2020-03-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-29 19:06:06" itemprop="dateModified" datetime="2020-05-29T19:06:06+08:00">2020-05-29</time>
-              </span>
-
-          
-            <span id="/CF530A/" class="post-meta-item leancloud_visitors" data-flag-title="CF530A Quadratic equation 题解" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-              <span>2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>我们有一元二次方程：</p>
-<script type="math/tex; mode=display">ax^{2}+bx+c=0</script><p>为了更加简便得到结果，我们应该对一般形式的方程进行化简：</p>
-<script type="math/tex; mode=display">x^{2}+\frac{b}{a}x+\frac{c}{a}=0\color{red}{\text{（两边同除以a）}}</script><script type="math/tex; mode=display">x^{2}+2·\frac{b}{2a}x+(\frac{b}{2a})^{2}-(\frac{b}{2a})^{2}+\frac{c}{a}=0\color{red}{\text{（配方）}}</script><script type="math/tex; mode=display">x^{2}+2·\frac{b}{2a}x+(\frac{b}{2a})^{2}-\frac{b^2}{4a^2}+\frac{c}{a}=0\color{red}{\text{（平方）}}</script><script type="math/tex; mode=display">x^{2}+2·\frac{b}{2a}x+(\frac{b}{2a})^{2}=\frac{b^2}{4a^2}-\frac{c}{a}\color{red}{\text{（移项）}}</script><script type="math/tex; mode=display">(x+\frac{b}{2a})^2=\frac{b^2}{4a^2}-\frac{c}{a}\color{red}{\text{（完全平方）}}</script><script type="math/tex; mode=display">(x+\frac{b}{2a})^2=\frac{b^2}{4a^2}-\frac{4ac}{4a^2}\color{red}{\text{（通分）}}</script><script type="math/tex; mode=display">(x+\frac{b}{2a})=\frac{±\sqrt{b^2-4ac}}{2a}\color{red}{\text{（开方）}}</script><script type="math/tex; mode=display">x=\frac{±\sqrt{b^2-4ac}}{2a}-\frac{b}{2a}\color{red}{\text{（移项）}}</script><script type="math/tex; mode=display">x=\frac{-b±\sqrt{b^2-4ac}}{2a}\color{red}{\text{（化简）}}</script><p>通过配方的方法，我们得到了解决一元二次方程的一般求解公式。我们可以看到，$b^2-4ac$是至关重要的一个代数式。数学中，我们也把它叫作判别式，符号为$\Delta$（下面可能会与$Delta$一起用）。</p>
-<p>通常对$\Delta$的正负性进行讨论：</p>
-<p>当$\Delta&gt;0$时，原方程有两个实数解，分别为：</p>
-<script type="math/tex; mode=display">x_1=\frac{-b+\sqrt{b^2-4ac}}{2a}</script><script type="math/tex; mode=display">x_2=\frac{-b-\sqrt{b^2-4ac}}{2a}</script><p>当$\Delta=0$时，原方程有两个相同的实数解：</p>
-<script type="math/tex; mode=display">x_1=x_2=-\frac{b}{2a}</script><p>当$\Delta&lt;0$时，原方程有两个共轭复根：</p>
-<script type="math/tex; mode=display">x=\frac{-b±i(4ac-b^2)}{2a}</script><p>当然对于$\Delta&lt;0$，我们可以不在本题中详细研究。</p>
-<p>解法分析完了，我们就应当考虑程序该如何运行。输入完之后，我们可以设置一个浮点变量$Delta$，使之等于$b^2-4ac$。假若$Delta&lt;0$直接跳出程序即可。</p>
-<p>接着讨论$\Delta=0,\Delta&gt;0$的情况：</p>
-<p>当$\Delta=0$，则直接输出$-\frac{b}{2a}$即可。</p>
-<p>否则先进行判断，即判断$x_1,x_2$的大小，不妨使用求差法：</p>
-<script type="math/tex; mode=display">x_1-x_2=\frac{-b+\sqrt{b^2-4ac}+b+\sqrt{b^2-4ac}}{2a}=\frac{\sqrt{b^2-4ac}}{a}</script><p>此时分子必定$&gt;0$，因此需要判断的是$a$的大小。</p>
-<p>在$\Delta&gt;0$的前提下，如果$a&gt;0$，则$x_2&lt;x_1$，就输出$x_2,x_1$，否则输出$x_1,x_2$。</p>
-<p>当然也可以比较$x_1,x_2$，不必求差，这样会更直接一些。</p>
-<p>这样我们可以得到代码：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;//sqrt在cmath库中</span></span></span><br><span class="line"><span class="keyword">int</span> t;</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> a,b,c;</span><br><span class="line"><span class="keyword">float</span> x,y,delta;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%lld%lld%lld"</span>,&amp;a,&amp;b,&amp;c);</span><br><span class="line">    delta=b*b<span class="number">-4</span>*a*c;<span class="comment">//判别式</span></span><br><span class="line">    <span class="keyword">if</span>(delta&lt;<span class="number">0</span>)<span class="keyword">return</span> <span class="number">0</span>;<span class="comment">//小于0就结束程序</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">fabs</span>(delta)&lt;<span class="number">1e-9</span>)<span class="built_in">printf</span>(<span class="string">"%.6f"</span>,<span class="number">-1.0</span>*b/<span class="number">2</span>/a);<span class="comment">//注意double有精度问题，如果要判断=0就判断它是否小于1e9</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            x=(-b-<span class="built_in">sqrt</span>(delta))/<span class="number">2</span>/a;</span><br><span class="line">            y=(<span class="built_in">sqrt</span>(delta)-b)/<span class="number">2</span>/a;<span class="comment">//赋值</span></span><br><span class="line">            <span class="keyword">if</span>(x&lt;y)<span class="built_in">printf</span>(<span class="string">"%.6f %.6f"</span>,x,y);<span class="comment">//可以直接比较，也可以按照上文中的方法</span></span><br><span class="line">            <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"%.6f %.6f"</span>,y,x);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1288,7 +1188,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1331,12 +1231,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">111k</span>
+    <span title="站点总字数">115k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:41</span>
+    <span title="站点阅读时长">1:44</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>

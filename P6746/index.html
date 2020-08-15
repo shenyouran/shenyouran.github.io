@@ -31,15 +31,22 @@
     var CONFIG = {"hostname":"shenyouran.github.io","root":"/","scheme":"Muse","version":"8.0.0-rc.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="shenyouran&#39;s Blog">
-<meta property="og:url" content="http://shenyouran.github.io/tags/%E6%B4%9B%E8%B0%B7/page/2/index.html">
+  <meta name="description" content="根据题目中子任务的限制暗示，可以顺藤摸瓜地解决本题。 $\text{Subtask 1}$【限制条件】$a&#x3D;b&#x3D;0$ 此时显然不需要任何操作，故最少代价为$0$。 $\text{Subtask 2}$【限制条件】$a&#x3D;0,b \neq 0$ 我们选择的正整数$x$应保证$x \gt b$。这样我们就可以执行子任务$2$，执行$a \to ax&#x3D;0$和$b \to \lfloor \dfrac{b}">
+<meta property="og:type" content="article">
+<meta property="og:title" content="P6685 可持久化动态仙人掌的直径问题 题解">
+<meta property="og:url" content="http://shenyouran.github.io/P6746/index.html">
 <meta property="og:site_name" content="shenyouran&#39;s Blog">
+<meta property="og:description" content="根据题目中子任务的限制暗示，可以顺藤摸瓜地解决本题。 $\text{Subtask 1}$【限制条件】$a&#x3D;b&#x3D;0$ 此时显然不需要任何操作，故最少代价为$0$。 $\text{Subtask 2}$【限制条件】$a&#x3D;0,b \neq 0$ 我们选择的正整数$x$应保证$x \gt b$。这样我们就可以执行子任务$2$，执行$a \to ax&#x3D;0$和$b \to \lfloor \dfrac{b}">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-27T06:16:40.000Z">
+<meta property="article:modified_time" content="2020-08-15T02:52:41.211Z">
 <meta property="article:author" content="shenyouran">
+<meta property="article:tag" content="题解">
+<meta property="article:tag" content="数学">
+<meta property="article:tag" content="洛谷">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://shenyouran.github.io/tags/%E6%B4%9B%E8%B0%B7/page/2/">
+<link rel="canonical" href="http://shenyouran.github.io/P6746/">
 
 
 <script id="page-configurations">
@@ -47,12 +54,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>标签: 洛谷 | shenyouran's Blog</title>
+  <title>P6685 可持久化动态仙人掌的直径问题 题解 | shenyouran's Blog</title>
   
 
 
@@ -187,240 +194,151 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">洛谷
-          <small>标签</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://shenyouran.github.io/P6746/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="shenyouran">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="shenyouran's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          P6685 可持久化动态仙人掌的直径问题 题解
+        </h1>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-27 14:16:40" itemprop="dateCreated datePublished" datetime="2020-07-27T14:16:40+08:00">2020-07-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-15 10:52:41" itemprop="dateModified" datetime="2020-08-15T10:52:41+08:00">2020-08-15</time>
+              </span>
+
+          
+            <span id="/P6746/" class="post-meta-item leancloud_visitors" data-flag-title="P6685 可持久化动态仙人掌的直径问题 题解" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
+        <p>根据题目中子任务的限制暗示，可以顺藤摸瓜地解决本题。</p>
+<h3 id="text-Subtask-1"><a href="#text-Subtask-1" class="headerlink" title="$\text{Subtask 1}$"></a>$\text{Subtask 1}$</h3><p>【限制条件】$a=b=0$</p>
+<p>此时显然不需要任何操作，故最少代价为$0$。</p>
+<h3 id="text-Subtask-2"><a href="#text-Subtask-2" class="headerlink" title="$\text{Subtask 2}$"></a>$\text{Subtask 2}$</h3><p>【限制条件】$a=0,b \neq 0$</p>
+<p>我们选择的正整数$x$应保证$x \gt b$。这样我们就可以执行子任务$2$，执行$a \to ax=0$和$b \to \lfloor \dfrac{b}{x} \rfloor=0$。此时代价为$d$。</p>
+<p>由于$c,d$均为正整数，所以唯一可能比上述代价更小的方式就是只使用操作$1$（因为只要使用操作$2$，那么代价就必定大于等于$d$）。</p>
+<p>当我们纯使用操作$1$的时候，假设操作$k$次，那么最终两个数为$a-kx$和$b-kx$。如果想让二者都为$0$，那么必须有$a=b=kx$。在该子任务下，这是不可能的。</p>
+<p>因此该子任务答案为$d$。</p>
+<h3 id="text-Subtask-3-5"><a href="#text-Subtask-3-5" class="headerlink" title="$\text{Subtask 3, 5}$"></a>$\text{Subtask 3, 5}$</h3><p>【限制条件】$a=b$</p>
+<p>最容易想到的就是使用一次操作$1$，代价为$c$。$\text{Subtask 3}$保证了$c \lt d$，所以该子任务答案为$c$。</p>
+<p>接着考虑纯使用操作$2$的情况。我们发现不能通过乘把一个数变为$0$，因此只能通过除法$+$下取整的方式达到目的。</p>
+<p>先选择一个正整数$x$，使$x \gt a$。执行$a \to \lfloor \dfrac{a}{x} \rfloor=0$和$b \to bx$。这样问题就转化到了$\text{Subtask 2}$，因此此时代价为$2d$。</p>
+<p>因此这个条件下的最小代价为$\min(c,2d)$。</p>
+<h3 id="text-通用情况"><a href="#text-通用情况" class="headerlink" title="$\text{通用情况}$"></a>$\text{通用情况}$</h3><p>【限制条件】除数据范围外无</p>
+<p>不难发现$\text{Subtask 3, 5}$的第二种方法其实适用于所有的情况，即：</p>
+<script type="math/tex; mode=display">a \to \lfloor \dfrac{a}{x} \rfloor=0,b \to bx(x \gt a)</script><p>规定上式中$\lfloor \dfrac{a}{x} \rfloor=a’$，$b \to bx=b’$。则第二步为：</p>
+<script type="math/tex; mode=display">a' \to a'x =0,b' \to \lfloor \dfrac{b'}{x} \rfloor=0(x \gt b')</script><p>此时代价为$2d$。</p>
+<p>不难发现，可能小于上述代价的可能情况只有$\{0,c,d,c+d,2c,2c+d\}$这几种。</p>
+<p>显然代价为$0,c,d$时均无法满足通用条件，刚才已经分析过了，而且限制条件时缺一不可的。</p>
+<p>于是考虑$c+d$，即执行一次操作$1$和一次操作$2$（下面假设$a \lt b$）：</p>
+<p>我们可以先进行操作$1$，即$(a,b) \to (0,b-a)$。</p>
+<p>再进行操作$2$，即$(0,b-a) \to (0,\lfloor \dfrac{b-a}{x} \rfloor)$（需满足$x \gt b-a$）。</p>
+<p>于是$c+d$的代价合法。</p>
+<p>$2c$的情况在$\text{Subtask 2}$中已经被否认，因为无论如何同时做减法，也不可能不依靠操作$2$。</p>
+<p>而$2c+d$显然劣于$c+d$，所以$c+d$是除$2d$以外的另一种情况。</p>
+<p>综上所述，对于除数据范围外无特殊限制条件的一组数，其变为$(0,0)$的代价为$\min(2d,c+d)$。</p>
+<h3 id="text-Summary"><a href="#text-Summary" class="headerlink" title="$\text{Summary}$"></a>$\text{Summary}$</h3><p>假设$a \lt b$，则最终结论为：</p>
+<script type="math/tex; mode=display">
+\text{ans}=
+\begin{cases}
+0& a=b=0 \cr
+d& a=0, b \neq 0 \cr
+\min(c,2d)& a=b \cr
+\min(2d,c+d)& a \neq b \text{ and } a,b \neq 0
+\end{cases}</script>
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-05-23T14:08:14+08:00"
-              content="2020-05-23">
-          05-23
-        </time>
-      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%A2%98%E8%A7%A3/" rel="tag"># 题解</a>
+              <a href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag"># 数学</a>
+              <a href="/tags/%E6%B4%9B%E8%B0%B7/" rel="tag"># 洛谷</a>
+          </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/P1928/" itemprop="url">
-            <span itemprop="name">P1928 外星密码 题解</span>
-          </a>
-      </div>
+        
 
-    </header>
-  </article>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-05-09T19:00:10+08:00"
-              content="2020-05-09">
-          05-09
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/P1142/" itemprop="url">
-            <span itemprop="name">P1142 轰炸 题解</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-05-01T11:27:28+08:00"
-              content="2020-05-01">
-          05-01
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/P2431/" itemprop="url">
-            <span itemprop="name">P2431 正妹吃月饼 题解</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-15T21:56:50+08:00"
-              content="2020-03-15">
-          03-15
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/P5732/" itemprop="url">
-            <span itemprop="name">P5732 【深基5.习7】杨辉三角 题解</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-02-27T19:02:04+08:00"
-              content="2020-02-27">
-          02-27
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/P5707/" itemprop="url">
-            <span itemprop="name">P5707 【深基2.例12】上学迟到 题解</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-02-27T17:56:06+08:00"
-              content="2020-02-27">
-          02-27
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/P5741/" itemprop="url">
-            <span itemprop="name">P5741 【深基7.例10】旗鼓相当的对手 - 加强版 题解</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-02-23T19:56:41+08:00"
-              content="2020-02-23">
-          02-23
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/P1851/" itemprop="url">
-            <span itemprop="name">P1851 好朋友 题解</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-02-23T11:03:26+08:00"
-              content="2020-02-23">
-          02-23
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/P1748/" itemprop="url">
-            <span itemprop="name">P1748 H数 题解</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-02-18T11:02:27+08:00"
-              content="2020-02-18">
-          02-18
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/P1720/" itemprop="url">
-            <span itemprop="name">P1720 月落乌啼算钱 题解</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-02-14T08:10:32+08:00"
-              content="2020-02-14">
-          02-14
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/P1079/" itemprop="url">
-            <span itemprop="name">P1079 Vigenère 密码 题解</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/P5876/" rel="prev" title="P5876 化简单词 题解">
+      <i class="fa fa-chevron-left"></i> P5876 化简单词 题解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/P6685/" rel="next" title="P6746 『MdOI R3』Operations 题解">
+      P6746 『MdOI R3』Operations 题解 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
-  </div>
+      </footer>
+    
+  </article>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/tags/%E6%B4%9B%E8%B0%B7/">&lt;</a><a class="page-number" href="/tags/%E6%B4%9B%E8%B0%B7/">1</a><span class="page-number current">2</span><a class="page-number" href="/tags/%E6%B4%9B%E8%B0%B7/page/3/">3</a><a class="extend next" rel="next" href="/tags/%E6%B4%9B%E8%B0%B7/page/3/">&gt;</a>
-  </nav>
 
 
 
           </div>
           
+    <div class="comments" id="gitalk-container"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -467,6 +385,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#text-Subtask-1"><span class="nav-number">1.</span> <span class="nav-text">$\text{Subtask 1}$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#text-Subtask-2"><span class="nav-number">2.</span> <span class="nav-text">$\text{Subtask 2}$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#text-Subtask-3-5"><span class="nav-number">3.</span> <span class="nav-text">$\text{Subtask 3, 5}$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#text-通用情况"><span class="nav-number">4.</span> <span class="nav-text">$\text{通用情况}$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#text-Summary"><span class="nav-number">5.</span> <span class="nav-text">$\text{Summary}$</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -677,9 +596,81 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '2eba7b4acb02b8d27315',
+      clientSecret: '6ae5b211db8ac3bc50e2baaa12ac9d9d67864a9b',
+      repo        : 'blog-comments',
+      owner       : 'shenyouran',
+      admin       : ['shenyouran'],
+      id          : '72645d5c19f2e7f203f03bbb87c191a8',
+        language: '',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>
