@@ -193,6 +193,106 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://shenyouran.github.io/P5707/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="shenyouran">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="shenyouran's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/P5707/" class="post-title-link" itemprop="url">P5707 【深基2.例12】上学迟到 题解</a>
+        </h2>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-27 19:02:04" itemprop="dateCreated datePublished" datetime="2020-02-27T19:02:04+08:00">2020-02-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-29 19:06:59" itemprop="dateModified" datetime="2020-05-29T19:06:59+08:00">2020-05-29</time>
+              </span>
+
+          
+            <span id="/P5707/" class="post-meta-item leancloud_visitors" data-flag-title="P5707 【深基2.例12】上学迟到 题解" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>该题我们可以用一个数值来保存分钟数——这可以用极限法。</p>
+<p>不妨假设yyy的家就在学校。即便如此，yyy也必须要在$07:50$之前出发。因此我们可以总结出，yyy的最迟出发时间不可能晚于$07:50$。</p>
+<p>假设$00:00$为第$0$分钟，则$07:50$为第$470$分钟。因此只要用这个$470$去减所需时间即可。简略的草图如下（<del>本蒟蒻画画水平极差</del>）：</p>
+<p><img src="https://shenyouran.github.io/projects/luogu/pic/P5707.png" alt=""></p>
+<p>因为我们已经考虑了那多余的$10$分钟，因此时间就是$\lceil\frac{s}{v}\rceil min$。为了计算上取整，我们可以使用$cmath$库函数（注意：$cmath$ $ceil$返回值为浮点类型），也可以自己定义。这是自定义的函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="number">1.0</span>*a/b==a/b)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的是$bool$类型，通过这个$bool$可以进行数值操作。</p>
+<p>翻译一下就是： </p>
+<p><img src="https://shenyouran.github.io/projects/luogu/pic/P5707-1.jpg" alt=""></p>
+<p>$s/v$代表$s$整除$v$，$s/v+1$这个语句等同于$\frac{s-s\%v}{v}+1$。</p>
+<p>除此以外，我们还需要进行判断。我们减去分钟数后，如果剩余小于$0$分钟，则需要加$1$天的时间。</p>
+<p><img src="https://shenyouran.github.io/projects/luogu/pic/P5707-2.jpg" alt=""></p>
+<p>最后我们对这个$t$进行处理，即输出$t/60,t\%60$并在前面考虑是否加$0$。</p>
+<p>这样我们就得到了AC代码：<a href="/record/31135081">（本蒟蒻AC记录）</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="number">1.0</span>*a/b==a/b)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;<span class="comment">//判断是否整除</span></span><br><span class="line"><span class="keyword">int</span> s,v,t=<span class="number">470</span>,h,m;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;s,&amp;v);<span class="comment">//输入路程和速度</span></span><br><span class="line">    t-=s/v;<span class="comment">//先减去下取整的结果</span></span><br><span class="line">    <span class="keyword">if</span>(check(s,v))t--;<span class="comment">//当整除的时候下取整等于上取整，因此如果不整除则直接加1</span></span><br><span class="line">    <span class="keyword">if</span>(t&lt;<span class="number">0</span>)t+=<span class="number">1440</span>;<span class="comment">//如果时间小于0就加1440（1天所换算的分钟数）</span></span><br><span class="line">    h=t/<span class="number">60</span>;<span class="comment">//h存储小时</span></span><br><span class="line">    m=t%<span class="number">60</span>;<span class="comment">//m存储分钟</span></span><br><span class="line">    <span class="keyword">if</span>(h&lt;<span class="number">10</span>)<span class="built_in">printf</span>(<span class="string">"0"</span>);<span class="comment">//如果h小于10就加0</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d:"</span>,h);<span class="comment">//格式化输出</span></span><br><span class="line">    <span class="keyword">if</span>(m&lt;<span class="number">10</span>)<span class="built_in">printf</span>(<span class="string">"0"</span>);<span class="comment">//如果m小于10就加0</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>,m);<span class="comment">//格式化输出</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（说明：本题的某些$Markdown$格式无法在题解中正常显示，因此更改为图片格式，敬请谅解。）</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://shenyouran.github.io/P5741/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1141,14 +1241,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-count">40</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1184,12 +1284,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">115k</span>
+    <span title="站点总字数">119k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:44</span>
+    <span title="站点阅读时长">1:48</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
