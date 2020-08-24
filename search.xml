@@ -457,11 +457,12 @@ C=c^2-3bd
   <entry>
     <title>P6784 「EZEC-3」造房子 题解</title>
     <url>/P6784/</url>
-    <content><![CDATA[<p>我们来分析一下本题的解法。</p>
+    <content><![CDATA[<p>我们来一一分析本题的多种解法。</p>
 <h3 id="text-Solution-1"><a href="#text-Solution-1" class="headerlink" title="$\text{Solution 1}$"></a>$\text{Solution 1}$</h3><p>期望得分：$20$ 分</p>
 <p>时间复杂度：$\mathcal O(\sqrt{\min(a,b)})$</p>
 <p>由于有 $20$ 分保证了 $c=0$，因而不妨从这个特殊点入手。</p>
 <p>当 $c=0$ 时，由于两种材料必须同时等量使用，因此用得上的两种材料最多都各只有 $\min(a,b)$ 个。</p>
+<a id="more"></a>
 <p>求解答案的过程与<a href="https://www.luogu.com.cn/problem/P1035" target="_blank" rel="noopener">P1035 级数求和</a>类似，只不过每次的加数从 $\dfrac{1}{i}$ 变成了这里的 $i$。</p>
 <p>我们只需要建立一个 <code>for</code> 循环，只要找到一个整数 $i$，使得 $1+2+…+i &gt; \min(a,b)$ 即可。</p>
 <p>最终答案为 $i-1$。</p>
