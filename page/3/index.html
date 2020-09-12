@@ -193,6 +193,173 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://shenyouran.github.io/P2431/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="shenyouran">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="shenyouran's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/P2431/" class="post-title-link" itemprop="url">P2431 正妹吃月饼 题解</a>
+        </h2>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-01 11:27:28" itemprop="dateCreated datePublished" datetime="2020-05-01T11:27:28+08:00">2020-05-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-07 11:57:08" itemprop="dateModified" datetime="2020-06-07T11:57:08+08:00">2020-06-07</time>
+              </span>
+
+          
+            <span id="/P2431/" class="post-meta-item leancloud_visitors" data-flag-title="P2431 正妹吃月饼 题解" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+              <span>2.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>本题可以让我们联想到二进制。</p>
+<p>对于一个二进制数，我们可以根据数位值的性质求出它所对应的十进制数。</p>
+<p>例如：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">数位</th>
+<th style="text-align:center">$1$</th>
+<th style="text-align:center">$0$</th>
+<th style="text-align:center">$1$</th>
+<th style="text-align:center">$0$</th>
+<th style="text-align:center">$0$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">表达式</td>
+<td style="text-align:center">$1\times2^4$</td>
+<td style="text-align:center">$0\times2^3$</td>
+<td style="text-align:center">$1\times2^2$</td>
+<td style="text-align:center">$0\times2^1$</td>
+<td style="text-align:center">$0\times2^0$</td>
+</tr>
+<tr>
+<td style="text-align:center">对应值</td>
+<td style="text-align:center">$16$</td>
+<td style="text-align:center">$0$</td>
+<td style="text-align:center">$4$</td>
+<td style="text-align:center">$0$</td>
+<td style="text-align:center">$0$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>因此二进制数$10100$转换为十进制就是：$16+0+4+0+0=20$。</p>
+<p>在本题中，我们有一个十进制数，转为二进制就知道要吃哪几块蛋糕。以刚才的$20$为例：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">被操作数</th>
+<th style="text-align:center">表达式</th>
+<th style="text-align:center">余数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$20$</td>
+<td style="text-align:center">$20\div2=10$</td>
+<td style="text-align:center">$R0$</td>
+</tr>
+<tr>
+<td style="text-align:center">$10$</td>
+<td style="text-align:center">$10\div2=5$</td>
+<td style="text-align:center">$R0$</td>
+</tr>
+<tr>
+<td style="text-align:center">$5$</td>
+<td style="text-align:center">$5\div2=2$</td>
+<td style="text-align:center">$R1$</td>
+</tr>
+<tr>
+<td style="text-align:center">$2$</td>
+<td style="text-align:center">$2\div2=1$</td>
+<td style="text-align:center">$R0$</td>
+</tr>
+<tr>
+<td style="text-align:center">$1$</td>
+<td style="text-align:center">$1\div2=0$</td>
+<td style="text-align:center">$R1$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>将刚才所得的所有余数连成一排并翻转，就能得到二进制数。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/P2431/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://shenyouran.github.io/CF854A/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1237,100 +1404,10 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://shenyouran.github.io/CF11A/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="shenyouran">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="shenyouran's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/CF11A/" class="post-title-link" itemprop="url">CF11A Increasing Sequence 题解</a>
-        </h2>
-
-        <div class="post-meta">
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-28 16:15:20" itemprop="dateCreated datePublished" datetime="2020-02-28T16:15:20+08:00">2020-02-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-29 19:05:43" itemprop="dateModified" datetime="2020-05-29T19:05:43+08:00">2020-05-29</time>
-              </span>
-
-          
-            <span id="/CF11A/" class="post-meta-item leancloud_visitors" data-flag-title="CF11A Increasing Sequence 题解" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-              <span>871</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>这道题看起来很复杂，但其实没有想象的困难。</p>
-<p>题目中提及每一次对其中一个数组的元素可以增加一个定值为$d$的数，因此我们可以一边输入、一边判断、一边操作、一边累加。对于样例：</p>
-<p><img src="https://shenyouran.github.io/projects/luogu/pic/CF11A.png" alt=""></p>
-<p>这样分析了之后，我们可以得到代码：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> n,d,a[<span class="number">2000</span>],s;<span class="comment">//n表示元素个数，d表示每次固定累加量，a[]保存元素，s为增加次数</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;d);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;a[i]);</span><br><span class="line">        <span class="keyword">if</span>(!i)<span class="keyword">continue</span>;<span class="comment">//如果不特判的话会产生调用a[-1]，这样会RE</span></span><br><span class="line">        <span class="keyword">while</span>(a[i]&lt;=a[i<span class="number">-1</span>])<span class="comment">//只要比前面的小于或者等于就一直加</span></span><br><span class="line">        &#123;</span><br><span class="line">            s++;</span><br><span class="line">            a[i]+=d;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>,s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>除了“只要不满足就一直加”的思路以外，我们还可以使用另一个思路，即下取整加$1$。该方法的成立原因是因为每一次都必须进行累加，而累加次数必定为$\lfloor \frac{a_{i-1}-a_{i}}{d} \rfloor+1$。因为即使两个元素相等，也必须要累加一次。我们得到代码：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> n,d,a[<span class="number">2000</span>],s;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;d);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;a[i]);</span><br><span class="line">        <span class="keyword">if</span>(!i)<span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span>(a[i]&lt;=a[i<span class="number">-1</span>])</span><br><span class="line">        &#123;</span><br><span class="line">            s+=(a[i<span class="number">-1</span>]-a[i])/d+<span class="number">1</span>;</span><br><span class="line">            a[i]+=d*((a[i<span class="number">-1</span>]-a[i])/d+<span class="number">1</span>);<span class="comment">//这一步必可不少，因为在上一行操作之后必须加上对应值</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>,s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/">&lt;</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">&gt;</a>
+    <a class="extend prev" rel="prev" href="/page/2/">&lt;</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">&gt;</a>
   </nav>
 
 
@@ -1396,7 +1473,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1439,12 +1516,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">119k</span>
+    <span title="站点总字数">123k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:48</span>
+    <span title="站点阅读时长">1:51</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
