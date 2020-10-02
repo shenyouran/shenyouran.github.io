@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shenyouran.github.io","root":"/","scheme":"Muse","version":"8.0.0-rc.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="在一个 $n \times m$ 的矩阵中，我们要求出从左上角到 右下角的方案种数。目前将点视为方格。 根据加法原理可知，对于每一个在矩阵中的点 $(i,j)$，它如果不是从上方而来，就必定从左侧来。因而点 $(i,j)$ 的路径总数就等于 $(i-1,j)$ 的路径总数和 $(i,j-1)$ 的路径总数之和。 当 $n&#x3D;3,m&#x3D;2$ 时，若用红色数字表示前往该点的方案种数，则有：     坐标">
+<meta property="og:type" content="article">
+<meta property="og:title" content="P1743 矩阵 III 题解">
+<meta property="og:url" content="http://shenyouran.github.io/P1743/index.html">
+<meta property="og:site_name" content="shenyouran&#39;s Blog">
+<meta property="og:description" content="在一个 $n \times m$ 的矩阵中，我们要求出从左上角到 右下角的方案种数。目前将点视为方格。 根据加法原理可知，对于每一个在矩阵中的点 $(i,j)$，它如果不是从上方而来，就必定从左侧来。因而点 $(i,j)$ 的路径总数就等于 $(i-1,j)$ 的路径总数和 $(i,j-1)$ 的路径总数之和。 当 $n&#x3D;3,m&#x3D;2$ 时，若用红色数字表示前往该点的方案种数，则有：     坐标">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.luogu.com.cn/upload/image_hosting/4b4esd9u.png">
+<meta property="article:published_time" content="2020-10-02T13:05:20.000Z">
+<meta property="article:modified_time" content="2020-10-02T13:08:32.190Z">
+<meta property="article:author" content="shenyouran">
+<meta property="article:tag" content="题解">
+<meta property="article:tag" content="数学">
+<meta property="article:tag" content="洛谷">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.luogu.com.cn/upload/image_hosting/4b4esd9u.png">
+
+<link rel="canonical" href="http://shenyouran.github.io/P1743/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>P1743 矩阵 III 题解 | shenyouran's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">shenyouran's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-code">
+
+    <a href="/code/" rel="section"><i class="fa fa-code fa-fw"></i>代码</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://shenyouran.github.io/P1743/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="shenyouran">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="shenyouran's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          P1743 矩阵 III 题解
+        </h1>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-10-02 21:05:20 / 修改时间：21:08:32" itemprop="dateCreated datePublished" datetime="2020-10-02T21:05:20+08:00">2020-10-02</time>
+            </span>
+
+          
+            <span id="/P1743/" class="post-meta-item leancloud_visitors" data-flag-title="P1743 矩阵 III 题解" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+              <span>4.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>在一个 $n \times m$ 的矩阵中，我们要求出从左上角到 右下角的方案种数。目前将点视为方格。</p>
+<p>根据加法原理可知，对于每一个在矩阵中的点 $(i,j)$，它如果不是从上方而来，就必定从左侧来。因而点 $(i,j)$ 的路径总数就等于 $(i-1,j)$ 的路径总数和 $(i,j-1)$ 的路径总数之和。</p>
+<p>当 $n=3,m=2$ 时，若用红色数字表示前往该点的方案种数，则有：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">坐标</th>
+<th style="text-align:center">$1$</th>
+<th style="text-align:center">$2$</th>
+<th style="text-align:center">$3$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$1$</td>
+<td style="text-align:center">$\red 1$</td>
+<td style="text-align:center">$\red 1$</td>
+<td style="text-align:center">$\red 1$</td>
+</tr>
+<tr>
+<td style="text-align:center">$2$</td>
+<td style="text-align:center">$\red 1$</td>
+<td style="text-align:center">$\red 2$</td>
+<td style="text-align:center">$\red 3$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>我们不难发现，每一个格子的值实质上是左上角和左侧的数字之和：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">坐标</th>
+<th style="text-align:center">$1$</th>
+<th style="text-align:center">$2$</th>
+<th style="text-align:center">$3$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$1$</td>
+<td style="text-align:center">$\red 1$</td>
+<td style="text-align:center">$\red 1$</td>
+<td style="text-align:center">$\red 1$</td>
+</tr>
+<tr>
+<td style="text-align:center">$2$</td>
+<td style="text-align:center">$\red 1$</td>
+<td style="text-align:center">$\red {1+1=2}$</td>
+<td style="text-align:center">$\red {2+1=3}$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>如果用 $f_{i,j}$ 来表示从 $(1,1)$ 到 $(i,j)$ 的方案种数，则有状态转移方程：</p>
+<script type="math/tex; mode=display">f_{i,j}=
+\begin{cases}
+1 & i=1 \text{ or } j=1 \cr
+f_{i-1,j}+f_{i,j-1} & i \neq 1 \text{ and } j \neq 1 \cr
+\end{cases}</script><p>我们考虑 $n=4,m=4$ 的情况：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">坐标</th>
+<th style="text-align:center">$1$</th>
+<th style="text-align:center">$2$</th>
+<th style="text-align:center">$3$</th>
+<th style="text-align:center">$4$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$1$</td>
+<td style="text-align:center">$\red 1$</td>
+<td style="text-align:center">$\red 1$</td>
+<td style="text-align:center">$\red 1$</td>
+<td style="text-align:center">$\red 1$</td>
+</tr>
+<tr>
+<td style="text-align:center">$2$</td>
+<td style="text-align:center">$\red 1$</td>
+<td style="text-align:center">$\red 2$</td>
+<td style="text-align:center">$\red 3$</td>
+<td style="text-align:center">$\red 4$</td>
+</tr>
+<tr>
+<td style="text-align:center">$3$</td>
+<td style="text-align:center">$\red 1$</td>
+<td style="text-align:center">$\red 3$</td>
+<td style="text-align:center">$\red 6$</td>
+<td style="text-align:center">$\red {10}$</td>
+</tr>
+<tr>
+<td style="text-align:center">$4$</td>
+<td style="text-align:center">$\red 1$</td>
+<td style="text-align:center">$\red 4$</td>
+<td style="text-align:center">$\red {10}$</td>
+<td style="text-align:center">$\red {20}$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>我们不妨将上述的图表围绕左上角的点顺时针旋转 $45^{\circ}$，得到类似这样的图：（本图为某数学竞赛试题的解析图）</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/4b4esd9u.png" alt=""></p>
+<p>我们可以很容易地判断出这个图形是杨辉三角。这也解释了先前所提到的状态转移方程为什么只和前面两个值的和有关。</p>
+<p>然而，因为 $n \le 10^8$，因而数组是开不下的，我们必须得寻找规律。突破口就是 $m \le 4$ 的这个限制条件。</p>
+<p>实际上，点的总个数 $\neq n \times m$，因为点在外围，而每一个小格在内部。每一排的点的个数为 $n+1$，故以下所提及到的 $n$ 均比输入的要大 $1$，而 $m$ 已经进行了考虑，与输入保持不变。</p>
+<p>因此，当 $m=0$ 时，任何一个点 $(1,x)$ 的路径总数只能从其左侧拓展而来（只有一整行的点），故值都为 $1$。</p>
+<p>当 $m=1$ 时，答案必定为 $n$。</p>
+<p>当 $m=2$ 时，不难发现，答案为 $\dfrac{n(n+1)}{2}$。</p>
+<p>当 $m=3$ 时，$f_{3,i}$ 与 $f_{3,i-1}$ 之差为 $\dfrac{i(i+1)}{2}$，即：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>项数</strong></th>
+<th style="text-align:center">$1$</th>
+<th style="text-align:center">$2$</th>
+<th style="text-align:center">$3$</th>
+<th style="text-align:center">$4$</th>
+<th style="text-align:center">$…$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>数值</strong></td>
+<td style="text-align:center">$\dfrac{1 \times 2}{2}$</td>
+<td style="text-align:center">$\dfrac{1 \times 2}{2}+\dfrac{2 \times 3}{2}$</td>
+<td style="text-align:center">$\dfrac{1 \times 2}{2}+\dfrac{2 \times 3}{2}+\dfrac{3 \times 4}{2}$</td>
+<td style="text-align:center">$\dfrac{1 \times 2}{2}+\dfrac{2 \times 3}{2}+\dfrac{3 \times 4}{2}+\dfrac{4 \times 5}{2}$</td>
+<td style="text-align:center">$…$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>那么：</p>
+<script type="math/tex; mode=display">f_{3,n}=\dfrac{1}{2} \sum_{i=1}^{n}i(i+1)</script><script type="math/tex; mode=display">=\dfrac{1}{2}(\sum_{i=1}^{n}{i^2}+\sum_{i=1}^{n}i)</script><script type="math/tex; mode=display">=\dfrac{1}{2}[\dfrac{n(n+1)(2n+1)}{6}+\dfrac{n(n+1)}{2}]</script><script type="math/tex; mode=display">=\dfrac{n(n+1)(2n+1)+3n(n+1)}{12}</script><script type="math/tex; mode=display">=\dfrac{n(n+1)(2n+4)}{12}</script><script type="math/tex; mode=display">=\dfrac{n(n+1)(n+2)}{6}</script><p>当 $m=4$ 时，$f_{4,i}$ 与 $f_{4,i-1}$ 之差为 $\dfrac{i(i+1)(i+2)}{6}$，因此：</p>
+<script type="math/tex; mode=display">f_{4,n}=\dfrac{1}{6} \sum_{i=1}^{n}i(i+1)(i+2)</script><script type="math/tex; mode=display">=\dfrac{1}{6} (\sum_{i=1}^{n}{i^3}+\sum_{i=1}^{n}{3i^2}+\sum_{i=1}^{n}{2i})</script><script type="math/tex; mode=display">=\dfrac{1}{6} [(\sum_{i=1}^{n}{i})^2+\dfrac{n(n+1)(2n+1)}{2}+n(n+1)]</script><script type="math/tex; mode=display">=\dfrac{1}{6} \{[\dfrac{n(n+1)}{2}]^2+\dfrac{n(n+1)(2n+1)}{2}+n(n+1)\}</script><script type="math/tex; mode=display">=\dfrac{1}{6} [\dfrac{n^2(n+1)^2}{4}+\dfrac{n(n+1)(2n+1)}{2}+n(n+1)]</script><script type="math/tex; mode=display">=\dfrac{1}{6} [\dfrac{n^2(n+1)^2+2n(n+1)(2n+1)+4n(n+1)}{4}]</script><script type="math/tex; mode=display">=\dfrac{1}{24}n(n+1) [n(n+1)+2(2n+1)+4]</script><script type="math/tex; mode=display">=\dfrac{1}{24}n(n+1) (n^2+5n+6)</script><script type="math/tex; mode=display">=\dfrac{n(n+1)(n+2)(n+3)}{24}</script><p>综上可得：</p>
+<script type="math/tex; mode=display">\text{ans}=
+\begin{cases}
+1 & m=0 \cr
+n & m=1 \cr
+\dfrac{n(n+1)}{2} & m=2 \cr
+\dfrac{n(n+1)(n+2)}{6} & m=3 \cr
+\dfrac{n(n+1)(n+2)(n+3)}{24} & m=4 \cr
+\end{cases}</script><p>进一步观察可知，这其实与排列组合有着密切关系，我们不难发现，答案可以用 $C^{m}_{n+m-1}$ （即$\dfrac{(n+m-1)!}{m!(n-1)!}$）来表示。这也就是杨辉三角的精髓所在。</p>
+<p>当 $n=10^8$ 时，答案最大可以达到 $10^{31}$ 的数量级，这显然要大于 $2^{100}$，因此我们可以使用浮点数类型或者 <code>__int128_t</code>（正规竞赛可能无法使用）。</p>
+<p><code>C/C++</code> 使用浮点类型（组合意义）：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">double</span> x=<span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=n+m;i&gt;=n+<span class="number">1</span>;i--)x*=i;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=m;i;i--)x/=i;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%.0Lf"</span>,x);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>C/C++</code> 使用浮点类型（通项公式）：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    n++;<span class="comment">//预先将 n 的值加 1，方便计算</span></span><br><span class="line">    <span class="keyword">if</span>(m==<span class="number">1</span>)<span class="built_in">printf</span>(<span class="string">"%d"</span>,n);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(m==<span class="number">2</span>)<span class="built_in">printf</span>(<span class="string">"%.0Lf"</span>,<span class="number">0.5L</span>*n*(n+<span class="number">1</span>));<span class="comment">//在没有小数点的情况下，一个数后加 L 表示 long 类型；而如果有小数点，则代表 long double 类型</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(m==<span class="number">3</span>)<span class="built_in">printf</span>(<span class="string">"%.0Lf"</span>,<span class="number">1.0L</span>*n*(n+<span class="number">1</span>)*(n+<span class="number">2</span>)/<span class="number">6.0L</span>);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"%.0Lf"</span>,<span class="number">1.0L</span>*n*(n+<span class="number">1</span>)*(n+<span class="number">2</span>)*(n+<span class="number">3</span>)/<span class="number">24.0L</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>C/C++</code> 使用 <code>__int128_t</code> 类型（组合意义）：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line"><span class="keyword">__int128_t</span> x=<span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">__int128_t</span> x)</span><span class="comment">//__int128_t 类型不提供标准输入输出，需要手写输出函数</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x&gt;<span class="number">9</span>)print(x/<span class="number">10</span>);</span><br><span class="line">    <span class="built_in">putchar</span>(x%<span class="number">10</span>+<span class="string">'0'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=n+m;i&gt;=n+<span class="number">1</span>;i--)x*=i;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=m;i;i--)x/=i;</span><br><span class="line">    print(x);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然而，由于题目本身和数据的原因，我们得知只需要输出前 $17$ 个数位，后面全部输出 $0$。</p>
+<p>结合 <code>C++</code> 的 <code>string</code> 可以保存所有数位，并按要求输出：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line"><span class="keyword">__int128_t</span> x=<span class="number">1</span>;</span><br><span class="line"><span class="built_in">string</span> s;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=n+m;i&gt;=n+<span class="number">1</span>;i--)x*=i;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=m;i;i--)x/=i;</span><br><span class="line">    <span class="keyword">while</span>(x)</span><br><span class="line">    &#123;</span><br><span class="line">        s+=x%<span class="number">10</span>+<span class="number">48</span>;<span class="comment">//将末位字符拼接在字符串之后</span></span><br><span class="line">        x/=<span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    reverse(s.begin(),s.end());<span class="comment">//将字符串倒置</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">17</span>&amp;&amp;s[i];i++)<span class="built_in">putchar</span>(s[i]);<span class="comment">//先输出前 17 个字符</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">17</span>;s[i];i++)<span class="built_in">putchar</span>(<span class="string">'0'</span>);<span class="comment">//如果字符串第 17 位（下标从 0 开始）不为空，就继续输出直到对应字符为空</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>利用 <code>C/C++</code> 的 <code>char</code> 数组依然也可以完成：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> n,m,len,i,j;</span><br><span class="line"><span class="keyword">__int128_t</span> x=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">char</span> s[<span class="number">51</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=n+m;i&gt;=n+<span class="number">1</span>;i--)x*=i;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=m;i;i--)x/=i;</span><br><span class="line">    <span class="keyword">while</span>(x)</span><br><span class="line">    &#123;</span><br><span class="line">        s[len++]+=x%<span class="number">10</span>+<span class="number">48</span>;<span class="comment">//方法与前者类似，只需改动下标，并同时将其用作保存字符数组长度的变量</span></span><br><span class="line">        x/=<span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(i=len<span class="number">-1</span>,j=<span class="number">0</span>;i&gt;=<span class="number">0</span>&amp;&amp;j&lt;<span class="number">17</span>;i--,j++)<span class="built_in">putchar</span>(s[i]);<span class="comment">//同时控制字符数组没有输出完+只输出前 17 位</span></span><br><span class="line">    <span class="keyword">for</span>(;i&gt;=<span class="number">0</span>;i--)<span class="built_in">putchar</span>(<span class="string">'0'</span>);<span class="comment">//由于 i 为全局变量，因而可以沿用上次的值，如果 i &gt;= 0 则说明输出尚未结束，应当输出直到下标 0 为止</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%A2%98%E8%A7%A3/" rel="tag"># 题解</a>
+              <a href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag"># 数学</a>
+              <a href="/tags/%E6%B4%9B%E8%B0%B7/" rel="tag"># 洛谷</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/P6823/" rel="prev" title="P6823 「EZEC-4」zrmpaul Loves Array 题解">
+      <i class="fa fa-chevron-left"></i> P6823 「EZEC-4」zrmpaul Loves Array 题解
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">shenyouran</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shenyouran</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">127k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:55</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+        
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"ssaXPCV3sX9rejKHsU7YTb0x-MdYXbMMI","app_key":"8RBooNBXcYLTfxWnCglXKpfY","server_url":null,"security":false};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '2eba7b4acb02b8d27315',
+      clientSecret: '6ae5b211db8ac3bc50e2baaa12ac9d9d67864a9b',
+      repo        : 'blog-comments',
+      owner       : 'shenyouran',
+      admin       : ['shenyouran'],
+      id          : '7390c32c4304a5ef52e2b47178cfd662',
+        language: '',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

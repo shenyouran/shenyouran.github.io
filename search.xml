@@ -455,6 +455,176 @@ C=c^2-3bd
       </tags>
   </entry>
   <entry>
+    <title>P1743 矩阵 III 题解</title>
+    <url>/P1743/</url>
+    <content><![CDATA[<p>在一个 $n \times m$ 的矩阵中，我们要求出从左上角到 右下角的方案种数。目前将点视为方格。</p>
+<p>根据加法原理可知，对于每一个在矩阵中的点 $(i,j)$，它如果不是从上方而来，就必定从左侧来。因而点 $(i,j)$ 的路径总数就等于 $(i-1,j)$ 的路径总数和 $(i,j-1)$ 的路径总数之和。</p>
+<p>当 $n=3,m=2$ 时，若用红色数字表示前往该点的方案种数，则有：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">坐标</th>
+<th style="text-align:center">$1$</th>
+<th style="text-align:center">$2$</th>
+<th style="text-align:center">$3$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$1$</td>
+<td style="text-align:center">$\red 1$</td>
+<td style="text-align:center">$\red 1$</td>
+<td style="text-align:center">$\red 1$</td>
+</tr>
+<tr>
+<td style="text-align:center">$2$</td>
+<td style="text-align:center">$\red 1$</td>
+<td style="text-align:center">$\red 2$</td>
+<td style="text-align:center">$\red 3$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>我们不难发现，每一个格子的值实质上是左上角和左侧的数字之和：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">坐标</th>
+<th style="text-align:center">$1$</th>
+<th style="text-align:center">$2$</th>
+<th style="text-align:center">$3$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$1$</td>
+<td style="text-align:center">$\red 1$</td>
+<td style="text-align:center">$\red 1$</td>
+<td style="text-align:center">$\red 1$</td>
+</tr>
+<tr>
+<td style="text-align:center">$2$</td>
+<td style="text-align:center">$\red 1$</td>
+<td style="text-align:center">$\red {1+1=2}$</td>
+<td style="text-align:center">$\red {2+1=3}$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>如果用 $f_{i,j}$ 来表示从 $(1,1)$ 到 $(i,j)$ 的方案种数，则有状态转移方程：</p>
+<script type="math/tex; mode=display">f_{i,j}=
+\begin{cases}
+1 & i=1 \text{ or } j=1 \cr
+f_{i-1,j}+f_{i,j-1} & i \neq 1 \text{ and } j \neq 1 \cr
+\end{cases}</script><p>我们考虑 $n=4,m=4$ 的情况：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">坐标</th>
+<th style="text-align:center">$1$</th>
+<th style="text-align:center">$2$</th>
+<th style="text-align:center">$3$</th>
+<th style="text-align:center">$4$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$1$</td>
+<td style="text-align:center">$\red 1$</td>
+<td style="text-align:center">$\red 1$</td>
+<td style="text-align:center">$\red 1$</td>
+<td style="text-align:center">$\red 1$</td>
+</tr>
+<tr>
+<td style="text-align:center">$2$</td>
+<td style="text-align:center">$\red 1$</td>
+<td style="text-align:center">$\red 2$</td>
+<td style="text-align:center">$\red 3$</td>
+<td style="text-align:center">$\red 4$</td>
+</tr>
+<tr>
+<td style="text-align:center">$3$</td>
+<td style="text-align:center">$\red 1$</td>
+<td style="text-align:center">$\red 3$</td>
+<td style="text-align:center">$\red 6$</td>
+<td style="text-align:center">$\red {10}$</td>
+</tr>
+<tr>
+<td style="text-align:center">$4$</td>
+<td style="text-align:center">$\red 1$</td>
+<td style="text-align:center">$\red 4$</td>
+<td style="text-align:center">$\red {10}$</td>
+<td style="text-align:center">$\red {20}$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>我们不妨将上述的图表围绕左上角的点顺时针旋转 $45^{\circ}$，得到类似这样的图：（本图为某数学竞赛试题的解析图）</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/4b4esd9u.png" alt=""></p>
+<p>我们可以很容易地判断出这个图形是杨辉三角。这也解释了先前所提到的状态转移方程为什么只和前面两个值的和有关。</p>
+<p>然而，因为 $n \le 10^8$，因而数组是开不下的，我们必须得寻找规律。突破口就是 $m \le 4$ 的这个限制条件。</p>
+<p>实际上，点的总个数 $\neq n \times m$，因为点在外围，而每一个小格在内部。每一排的点的个数为 $n+1$，故以下所提及到的 $n$ 均比输入的要大 $1$，而 $m$ 已经进行了考虑，与输入保持不变。</p>
+<p>因此，当 $m=0$ 时，任何一个点 $(1,x)$ 的路径总数只能从其左侧拓展而来（只有一整行的点），故值都为 $1$。</p>
+<p>当 $m=1$ 时，答案必定为 $n$。</p>
+<p>当 $m=2$ 时，不难发现，答案为 $\dfrac{n(n+1)}{2}$。</p>
+<p>当 $m=3$ 时，$f_{3,i}$ 与 $f_{3,i-1}$ 之差为 $\dfrac{i(i+1)}{2}$，即：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>项数</strong></th>
+<th style="text-align:center">$1$</th>
+<th style="text-align:center">$2$</th>
+<th style="text-align:center">$3$</th>
+<th style="text-align:center">$4$</th>
+<th style="text-align:center">$…$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>数值</strong></td>
+<td style="text-align:center">$\dfrac{1 \times 2}{2}$</td>
+<td style="text-align:center">$\dfrac{1 \times 2}{2}+\dfrac{2 \times 3}{2}$</td>
+<td style="text-align:center">$\dfrac{1 \times 2}{2}+\dfrac{2 \times 3}{2}+\dfrac{3 \times 4}{2}$</td>
+<td style="text-align:center">$\dfrac{1 \times 2}{2}+\dfrac{2 \times 3}{2}+\dfrac{3 \times 4}{2}+\dfrac{4 \times 5}{2}$</td>
+<td style="text-align:center">$…$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>那么：</p>
+<script type="math/tex; mode=display">f_{3,n}=\dfrac{1}{2} \sum_{i=1}^{n}i(i+1)</script><script type="math/tex; mode=display">=\dfrac{1}{2}(\sum_{i=1}^{n}{i^2}+\sum_{i=1}^{n}i)</script><script type="math/tex; mode=display">=\dfrac{1}{2}[\dfrac{n(n+1)(2n+1)}{6}+\dfrac{n(n+1)}{2}]</script><script type="math/tex; mode=display">=\dfrac{n(n+1)(2n+1)+3n(n+1)}{12}</script><script type="math/tex; mode=display">=\dfrac{n(n+1)(2n+4)}{12}</script><script type="math/tex; mode=display">=\dfrac{n(n+1)(n+2)}{6}</script><p>当 $m=4$ 时，$f_{4,i}$ 与 $f_{4,i-1}$ 之差为 $\dfrac{i(i+1)(i+2)}{6}$，因此：</p>
+<script type="math/tex; mode=display">f_{4,n}=\dfrac{1}{6} \sum_{i=1}^{n}i(i+1)(i+2)</script><script type="math/tex; mode=display">=\dfrac{1}{6} (\sum_{i=1}^{n}{i^3}+\sum_{i=1}^{n}{3i^2}+\sum_{i=1}^{n}{2i})</script><script type="math/tex; mode=display">=\dfrac{1}{6} [(\sum_{i=1}^{n}{i})^2+\dfrac{n(n+1)(2n+1)}{2}+n(n+1)]</script><script type="math/tex; mode=display">=\dfrac{1}{6} \{[\dfrac{n(n+1)}{2}]^2+\dfrac{n(n+1)(2n+1)}{2}+n(n+1)\}</script><script type="math/tex; mode=display">=\dfrac{1}{6} [\dfrac{n^2(n+1)^2}{4}+\dfrac{n(n+1)(2n+1)}{2}+n(n+1)]</script><script type="math/tex; mode=display">=\dfrac{1}{6} [\dfrac{n^2(n+1)^2+2n(n+1)(2n+1)+4n(n+1)}{4}]</script><script type="math/tex; mode=display">=\dfrac{1}{24}n(n+1) [n(n+1)+2(2n+1)+4]</script><script type="math/tex; mode=display">=\dfrac{1}{24}n(n+1) (n^2+5n+6)</script><script type="math/tex; mode=display">=\dfrac{n(n+1)(n+2)(n+3)}{24}</script><p>综上可得：</p>
+<script type="math/tex; mode=display">\text{ans}=
+\begin{cases}
+1 & m=0 \cr
+n & m=1 \cr
+\dfrac{n(n+1)}{2} & m=2 \cr
+\dfrac{n(n+1)(n+2)}{6} & m=3 \cr
+\dfrac{n(n+1)(n+2)(n+3)}{24} & m=4 \cr
+\end{cases}</script><p>进一步观察可知，这其实与排列组合有着密切关系，我们不难发现，答案可以用 $C^{m}_{n+m-1}$ （即$\dfrac{(n+m-1)!}{m!(n-1)!}$）来表示。这也就是杨辉三角的精髓所在。</p>
+<p>当 $n=10^8$ 时，答案最大可以达到 $10^{31}$ 的数量级，这显然要大于 $2^{100}$，因此我们可以使用浮点数类型或者 <code>__int128_t</code>（正规竞赛可能无法使用）。</p>
+<p><code>C/C++</code> 使用浮点类型（组合意义）：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">double</span> x=<span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=n+m;i&gt;=n+<span class="number">1</span>;i--)x*=i;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=m;i;i--)x/=i;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%.0Lf"</span>,x);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>C/C++</code> 使用浮点类型（通项公式）：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    n++;<span class="comment">//预先将 n 的值加 1，方便计算</span></span><br><span class="line">    <span class="keyword">if</span>(m==<span class="number">1</span>)<span class="built_in">printf</span>(<span class="string">"%d"</span>,n);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(m==<span class="number">2</span>)<span class="built_in">printf</span>(<span class="string">"%.0Lf"</span>,<span class="number">0.5L</span>*n*(n+<span class="number">1</span>));<span class="comment">//在没有小数点的情况下，一个数后加 L 表示 long 类型；而如果有小数点，则代表 long double 类型</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(m==<span class="number">3</span>)<span class="built_in">printf</span>(<span class="string">"%.0Lf"</span>,<span class="number">1.0L</span>*n*(n+<span class="number">1</span>)*(n+<span class="number">2</span>)/<span class="number">6.0L</span>);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"%.0Lf"</span>,<span class="number">1.0L</span>*n*(n+<span class="number">1</span>)*(n+<span class="number">2</span>)*(n+<span class="number">3</span>)/<span class="number">24.0L</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>C/C++</code> 使用 <code>__int128_t</code> 类型（组合意义）：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line"><span class="keyword">__int128_t</span> x=<span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">__int128_t</span> x)</span><span class="comment">//__int128_t 类型不提供标准输入输出，需要手写输出函数</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x&gt;<span class="number">9</span>)print(x/<span class="number">10</span>);</span><br><span class="line">    <span class="built_in">putchar</span>(x%<span class="number">10</span>+<span class="string">'0'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=n+m;i&gt;=n+<span class="number">1</span>;i--)x*=i;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=m;i;i--)x/=i;</span><br><span class="line">    print(x);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然而，由于题目本身和数据的原因，我们得知只需要输出前 $17$ 个数位，后面全部输出 $0$。</p>
+<p>结合 <code>C++</code> 的 <code>string</code> 可以保存所有数位，并按要求输出：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line"><span class="keyword">__int128_t</span> x=<span class="number">1</span>;</span><br><span class="line"><span class="built_in">string</span> s;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=n+m;i&gt;=n+<span class="number">1</span>;i--)x*=i;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=m;i;i--)x/=i;</span><br><span class="line">    <span class="keyword">while</span>(x)</span><br><span class="line">    &#123;</span><br><span class="line">        s+=x%<span class="number">10</span>+<span class="number">48</span>;<span class="comment">//将末位字符拼接在字符串之后</span></span><br><span class="line">        x/=<span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    reverse(s.begin(),s.end());<span class="comment">//将字符串倒置</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">17</span>&amp;&amp;s[i];i++)<span class="built_in">putchar</span>(s[i]);<span class="comment">//先输出前 17 个字符</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">17</span>;s[i];i++)<span class="built_in">putchar</span>(<span class="string">'0'</span>);<span class="comment">//如果字符串第 17 位（下标从 0 开始）不为空，就继续输出直到对应字符为空</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>利用 <code>C/C++</code> 的 <code>char</code> 数组依然也可以完成：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> n,m,len,i,j;</span><br><span class="line"><span class="keyword">__int128_t</span> x=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">char</span> s[<span class="number">51</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=n+m;i&gt;=n+<span class="number">1</span>;i--)x*=i;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=m;i;i--)x/=i;</span><br><span class="line">    <span class="keyword">while</span>(x)</span><br><span class="line">    &#123;</span><br><span class="line">        s[len++]+=x%<span class="number">10</span>+<span class="number">48</span>;<span class="comment">//方法与前者类似，只需改动下标，并同时将其用作保存字符数组长度的变量</span></span><br><span class="line">        x/=<span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(i=len<span class="number">-1</span>,j=<span class="number">0</span>;i&gt;=<span class="number">0</span>&amp;&amp;j&lt;<span class="number">17</span>;i--,j++)<span class="built_in">putchar</span>(s[i]);<span class="comment">//同时控制字符数组没有输出完+只输出前 17 位</span></span><br><span class="line">    <span class="keyword">for</span>(;i&gt;=<span class="number">0</span>;i--)<span class="built_in">putchar</span>(<span class="string">'0'</span>);<span class="comment">//由于 i 为全局变量，因而可以沿用上次的值，如果 i &gt;= 0 则说明输出尚未结束，应当输出直到下标 0 为止</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>题解</tag>
+        <tag>数学</tag>
+        <tag>洛谷</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>P6823 「EZEC-4」zrmpaul Loves Array 题解</title>
     <url>/P6823/</url>
     <content><![CDATA[<h3 id="text-Subtask-1-暴力枚举"><a href="#text-Subtask-1-暴力枚举" class="headerlink" title="$\text{Subtask 1: 暴力枚举}$"></a>$\text{Subtask 1: 暴力枚举}$</h3><p>期望得分：$24$ 分</p>
