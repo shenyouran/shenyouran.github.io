@@ -1034,7 +1034,7 @@ n & m=1 \cr
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://shenyouran.github.io/P6685/">
+    <link itemprop="mainEntityOfPage" href="http://shenyouran.github.io/P6746/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1048,7 +1048,7 @@ n & m=1 \cr
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/P6685/" class="post-title-link" itemprop="url">P6746 『MdOI R3』Operations 题解</a>
+            <a href="/P6746/" class="post-title-link" itemprop="url">P6746 『MdOI R3』Operations 题解</a>
         </h2>
 
         <div class="post-meta">
@@ -1066,11 +1066,129 @@ n & m=1 \cr
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-15 10:52:19" itemprop="dateModified" datetime="2020-08-15T10:52:19+08:00">2020-08-15</time>
+                <time title="修改时间：2020-10-03 12:40:42" itemprop="dateModified" datetime="2020-10-03T12:40:42+08:00">2020-10-03</time>
               </span>
 
           
-            <span id="/P6685/" class="post-meta-item leancloud_visitors" data-flag-title="P6746 『MdOI R3』Operations 题解" title="阅读次数">
+            <span id="/P6746/" class="post-meta-item leancloud_visitors" data-flag-title="P6746 『MdOI R3』Operations 题解" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>根据题目中子任务的限制暗示，可以顺藤摸瓜地解决本题。</p>
+<h3 id="text-Subtask-1"><a href="#text-Subtask-1" class="headerlink" title="$\text{Subtask 1}$"></a>$\text{Subtask 1}$</h3><p>【限制条件】$a=b=0$</p>
+<p>此时显然不需要任何操作，故最少代价为$0$。</p>
+<h3 id="text-Subtask-2"><a href="#text-Subtask-2" class="headerlink" title="$\text{Subtask 2}$"></a>$\text{Subtask 2}$</h3><p>【限制条件】$a=0,b \neq 0$</p>
+<p>我们选择的正整数$x$应保证$x \gt b$。这样我们就可以执行子任务$2$，执行$a \to ax=0$和$b \to \lfloor \dfrac{b}{x} \rfloor=0$。此时代价为$d$。</p>
+<p>由于$c,d$均为正整数，所以唯一可能比上述代价更小的方式就是只使用操作$1$（因为只要使用操作$2$，那么代价就必定大于等于$d$）。</p>
+<p>当我们纯使用操作$1$的时候，假设操作$k$次，那么最终两个数为$a-kx$和$b-kx$。如果想让二者都为$0$，那么必须有$a=b=kx$。在该子任务下，这是不可能的。</p>
+<p>因此该子任务答案为$d$。</p>
+<h3 id="text-Subtask-3-5"><a href="#text-Subtask-3-5" class="headerlink" title="$\text{Subtask 3, 5}$"></a>$\text{Subtask 3, 5}$</h3><p>【限制条件】$a=b$</p>
+<p>最容易想到的就是使用一次操作$1$，代价为$c$。$\text{Subtask 3}$保证了$c \lt d$，所以该子任务答案为$c$。</p>
+<p>接着考虑纯使用操作$2$的情况。我们发现不能通过乘把一个数变为$0$，因此只能通过除法$+$下取整的方式达到目的。</p>
+<p>先选择一个正整数$x$，使$x \gt a$。执行$a \to \lfloor \dfrac{a}{x} \rfloor=0$和$b \to bx$。这样问题就转化到了$\text{Subtask 2}$，因此此时代价为$2d$。</p>
+<p>因此这个条件下的最小代价为$\min(c,2d)$。</p>
+<h3 id="text-通用情况"><a href="#text-通用情况" class="headerlink" title="$\text{通用情况}$"></a>$\text{通用情况}$</h3><p>【限制条件】除数据范围外无</p>
+<p>不难发现$\text{Subtask 3, 5}$的第二种方法其实适用于所有的情况，即：</p>
+<script type="math/tex; mode=display">a \to \lfloor \dfrac{a}{x} \rfloor=0,b \to bx(x \gt a)</script><p>规定上式中$\lfloor \dfrac{a}{x} \rfloor=a’$，$b \to bx=b’$。则第二步为：</p>
+<script type="math/tex; mode=display">a' \to a'x =0,b' \to \lfloor \dfrac{b'}{x} \rfloor=0(x \gt b')</script><p>此时代价为$2d$。</p>
+<p>不难发现，可能小于上述代价的可能情况只有$\{0,c,d,c+d,2c,2c+d\}$这几种。</p>
+<p>显然代价为$0,c,d$时均无法满足通用条件，刚才已经分析过了，而且限制条件时缺一不可的。</p>
+<p>于是考虑$c+d$，即执行一次操作$1$和一次操作$2$（下面假设$a \lt b$）：</p>
+<p>我们可以先进行操作$1$，即$(a,b) \to (0,b-a)$。</p>
+<p>再进行操作$2$，即$(0,b-a) \to (0,\lfloor \dfrac{b-a}{x} \rfloor)$（需满足$x \gt b-a$）。</p>
+<p>于是$c+d$的代价合法。</p>
+<p>$2c$的情况在$\text{Subtask 2}$中已经被否认，因为无论如何同时做减法，也不可能不依靠操作$2$。</p>
+<p>而$2c+d$显然劣于$c+d$，所以$c+d$是除$2d$以外的另一种情况。</p>
+<p>综上所述，对于除数据范围外无特殊限制条件的一组数，其变为$(0,0)$的代价为$\min(2d,c+d)$。</p>
+<h3 id="text-Summary"><a href="#text-Summary" class="headerlink" title="$\text{Summary}$"></a>$\text{Summary}$</h3><p>假设$a \lt b$，则最终结论为：</p>
+<script type="math/tex; mode=display">
+\text{ans}=
+\begin{cases}
+0& a=b=0 \cr
+d& a=0, b \neq 0 \cr
+\min(c,2d)& a=b \cr
+\min(2d,c+d)& a \neq b \text{ and } a,b \neq 0
+\end{cases}</script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://shenyouran.github.io/P6685/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="shenyouran">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="shenyouran's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/P6685/" class="post-title-link" itemprop="url">P6685 可持久化动态仙人掌的直径问题 题解</a>
+        </h2>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-27 14:16:40" itemprop="dateCreated datePublished" datetime="2020-07-27T14:16:40+08:00">2020-07-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-03 12:40:40" itemprop="dateModified" datetime="2020-10-03T12:40:40+08:00">2020-10-03</time>
+              </span>
+
+          
+            <span id="/P6685/" class="post-meta-item leancloud_visitors" data-flag-title="P6685 可持久化动态仙人掌的直径问题 题解" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -1161,124 +1279,6 @@ n & m=1 \cr
 <p>每次只要满足$mid^m \le n$，就把左指针$l$设定为$mid+1$，否则把右指针$r$设定为$mid-1$。</p>
 <p>当我们在二分查找数组中第一个大于被查找数的元素时，我们输出的是$l$。现在要找小于等于的元素，因此输出的是$\color{red}{l-1!!!}$</p>
 
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://shenyouran.github.io/P6746/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="shenyouran">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="shenyouran's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/P6746/" class="post-title-link" itemprop="url">P6685 可持久化动态仙人掌的直径问题 题解</a>
-        </h2>
-
-        <div class="post-meta">
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-27 14:16:40" itemprop="dateCreated datePublished" datetime="2020-07-27T14:16:40+08:00">2020-07-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-15 10:52:41" itemprop="dateModified" datetime="2020-08-15T10:52:41+08:00">2020-08-15</time>
-              </span>
-
-          
-            <span id="/P6746/" class="post-meta-item leancloud_visitors" data-flag-title="P6685 可持久化动态仙人掌的直径问题 题解" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-              <span>1.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>根据题目中子任务的限制暗示，可以顺藤摸瓜地解决本题。</p>
-<h3 id="text-Subtask-1"><a href="#text-Subtask-1" class="headerlink" title="$\text{Subtask 1}$"></a>$\text{Subtask 1}$</h3><p>【限制条件】$a=b=0$</p>
-<p>此时显然不需要任何操作，故最少代价为$0$。</p>
-<h3 id="text-Subtask-2"><a href="#text-Subtask-2" class="headerlink" title="$\text{Subtask 2}$"></a>$\text{Subtask 2}$</h3><p>【限制条件】$a=0,b \neq 0$</p>
-<p>我们选择的正整数$x$应保证$x \gt b$。这样我们就可以执行子任务$2$，执行$a \to ax=0$和$b \to \lfloor \dfrac{b}{x} \rfloor=0$。此时代价为$d$。</p>
-<p>由于$c,d$均为正整数，所以唯一可能比上述代价更小的方式就是只使用操作$1$（因为只要使用操作$2$，那么代价就必定大于等于$d$）。</p>
-<p>当我们纯使用操作$1$的时候，假设操作$k$次，那么最终两个数为$a-kx$和$b-kx$。如果想让二者都为$0$，那么必须有$a=b=kx$。在该子任务下，这是不可能的。</p>
-<p>因此该子任务答案为$d$。</p>
-<h3 id="text-Subtask-3-5"><a href="#text-Subtask-3-5" class="headerlink" title="$\text{Subtask 3, 5}$"></a>$\text{Subtask 3, 5}$</h3><p>【限制条件】$a=b$</p>
-<p>最容易想到的就是使用一次操作$1$，代价为$c$。$\text{Subtask 3}$保证了$c \lt d$，所以该子任务答案为$c$。</p>
-<p>接着考虑纯使用操作$2$的情况。我们发现不能通过乘把一个数变为$0$，因此只能通过除法$+$下取整的方式达到目的。</p>
-<p>先选择一个正整数$x$，使$x \gt a$。执行$a \to \lfloor \dfrac{a}{x} \rfloor=0$和$b \to bx$。这样问题就转化到了$\text{Subtask 2}$，因此此时代价为$2d$。</p>
-<p>因此这个条件下的最小代价为$\min(c,2d)$。</p>
-<h3 id="text-通用情况"><a href="#text-通用情况" class="headerlink" title="$\text{通用情况}$"></a>$\text{通用情况}$</h3><p>【限制条件】除数据范围外无</p>
-<p>不难发现$\text{Subtask 3, 5}$的第二种方法其实适用于所有的情况，即：</p>
-<script type="math/tex; mode=display">a \to \lfloor \dfrac{a}{x} \rfloor=0,b \to bx(x \gt a)</script><p>规定上式中$\lfloor \dfrac{a}{x} \rfloor=a’$，$b \to bx=b’$。则第二步为：</p>
-<script type="math/tex; mode=display">a' \to a'x =0,b' \to \lfloor \dfrac{b'}{x} \rfloor=0(x \gt b')</script><p>此时代价为$2d$。</p>
-<p>不难发现，可能小于上述代价的可能情况只有$\{0,c,d,c+d,2c,2c+d\}$这几种。</p>
-<p>显然代价为$0,c,d$时均无法满足通用条件，刚才已经分析过了，而且限制条件时缺一不可的。</p>
-<p>于是考虑$c+d$，即执行一次操作$1$和一次操作$2$（下面假设$a \lt b$）：</p>
-<p>我们可以先进行操作$1$，即$(a,b) \to (0,b-a)$。</p>
-<p>再进行操作$2$，即$(0,b-a) \to (0,\lfloor \dfrac{b-a}{x} \rfloor)$（需满足$x \gt b-a$）。</p>
-<p>于是$c+d$的代价合法。</p>
-<p>$2c$的情况在$\text{Subtask 2}$中已经被否认，因为无论如何同时做减法，也不可能不依靠操作$2$。</p>
-<p>而$2c+d$显然劣于$c+d$，所以$c+d$是除$2d$以外的另一种情况。</p>
-<p>综上所述，对于除数据范围外无特殊限制条件的一组数，其变为$(0,0)$的代价为$\min(2d,c+d)$。</p>
-<h3 id="text-Summary"><a href="#text-Summary" class="headerlink" title="$\text{Summary}$"></a>$\text{Summary}$</h3><p>假设$a \lt b$，则最终结论为：</p>
-<script type="math/tex; mode=display">
-\text{ans}=
-\begin{cases}
-0& a=b=0 \cr
-d& a=0, b \neq 0 \cr
-\min(c,2d)& a=b \cr
-\min(2d,c+d)& a \neq b \text{ and } a,b \neq 0
-\end{cases}</script>
       
     </div>
 
