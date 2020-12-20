@@ -193,6 +193,151 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://shenyouran.github.io/P6685/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="shenyouran">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="shenyouran's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/P6685/" class="post-title-link" itemprop="url">P6685 可持久化动态仙人掌的直径问题 题解</a>
+        </h2>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-27 14:16:40" itemprop="dateCreated datePublished" datetime="2020-07-27T14:16:40+08:00">2020-07-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-03 12:40:40" itemprop="dateModified" datetime="2020-10-03T12:40:40+08:00">2020-10-03</time>
+              </span>
+
+          
+            <span id="/P6685/" class="post-meta-item leancloud_visitors" data-flag-title="P6685 可持久化动态仙人掌的直径问题 题解" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+              <span>1.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>话休絮烦，我们直接对本题的做法进行分析。</p>
+<h3 id="text-Solution-1-骗分"><a href="#text-Solution-1-骗分" class="headerlink" title="$\text{Solution 1: 骗分}$"></a>$\text{Solution 1: 骗分}$</h3><p>期望得分：$25$分</p>
+<p>当$m=1$的时候，原式可转化为$x^1 \le n$，即$x \le n$。因为所有的$x$都为正整数，所以答案为$n$。</p>
+<h3 id="text-Solution-2A-2B-暴力枚举"><a href="#text-Solution-2A-2B-暴力枚举" class="headerlink" title="$\text{Solution 2A, 2B: 暴力枚举}$"></a>$\text{Solution 2A, 2B: 暴力枚举}$</h3><p>期望得分：$75 \to 100$分</p>
+<p>我们可以很容易地想到暴力枚举。为了加速，我们可以使用快速幂。</p>
+<p>然而，运算的结果连$\text{unsigned long long}$和$\text{__int128_t}$都会爆掉，所以这种方法行不通。</p>
+<p>既然整型存不下，我们不妨使用$\text{math.h/cmath(C/C++), math(Pascal/Python)}$库（以下简称数学库）自带的$\text{pow}$函数。该函数返回的值是双精度浮点数，即$\text{double}$。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>关键字</th>
+<th>大小</th>
+<th>范围</th>
+<th>有效数字</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单精度</td>
+<td>$\text{float}$</td>
+<td>$4$字节</td>
+<td>$[±3.4\times 10^{-38},±3.4\times 10^{38}]$</td>
+<td>$7$位</td>
+</tr>
+<tr>
+<td>双精度</td>
+<td>$\text{double}$</td>
+<td>$8$字节</td>
+<td>$[±1.7\times 10^{-308},±1.7\times 10^{308}]$</td>
+<td>$16$位</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>此处，返回的类型可以达到$10^{308}$的数量级，所以根本不用担心范围问题。</p>
+<p>不过，$\text{pow}$函数存在严重的精度缺失问题，其实在本题中是有丢精度的风险的。</p>
+<p>进行尝试：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">"%.0lf"</span>,<span class="built_in">pow</span>(<span class="number">27</span>,<span class="number">18</span>));</span><br><span class="line"><span class="comment">//输出结果为58149737003040063952519168</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="number">27</span> ** <span class="number">18</span>) <span class="comment"># Python中a**b表示a^b</span></span><br><span class="line">print(pow(<span class="number">27</span>, <span class="number">18</span>))</span><br><span class="line"><span class="comment"># 输出结果均为58149737003040059690390169</span></span><br></pre></td></tr></table></figure>
+<p>我们知道，$\text{Python}$自带高精度，结果一定不会出问题。这就证明了在$\text{C/C++}$中，$\text{pow}$确实有精度缺失。</p>
+<p>即使是精度如此之低的$\text{pow}$，也能够保证数量级基本正确。因此，在本题中，用$\text{pow}$是可以$\text{AC}$的。</p>
+<h3 id="text-Solution-3-求根"><a href="#text-Solution-3-求根" class="headerlink" title="$\text{Solution 3: 求根}$"></a>$\text{Solution 3: 求根}$</h3><p>期望得分：$100$分</p>
+<p>我们发现，当$x^m=n$的时候，$x$还可表示为$\sqrt[m]{n}$。因此输出答案为$\lfloor \sqrt[m]{n} \rfloor$。</p>
+<p>由于$\sqrt[m]{n}=n^{\frac{1}{m}}$，所以使用数学库中的$\text{pow}$函数即可实现计算。</p>
+<h3 id="text-Solution-4-对数"><a href="#text-Solution-4-对数" class="headerlink" title="$\text{Solution 4: 对数}$"></a>$\text{Solution 4: 对数}$</h3><p>期望得分：$100$分</p>
+<p>看到幂的运算，就能够想到对数。对数的定义：</p>
+<p>$\color{red}\text{如果}a^x=N(a&gt;0\text{且}a \neq 1)\text{，则}x=\log_aN$。</p>
+<p>接下来就是对题目中不等号的处理。</p>
+<p>不妨假设此时$x^m=n$。由于答案为正整数，因此$x$即为题目答案。根据对数的定义，有$m=\log_xn$。</p>
+<p>然而，数学库中并没有包含对数的函数。只有$\log,\log2,\log10$的函数可供使用。</p>
+<p>本题需要用到换底公式：</p>
+<script type="math/tex; mode=display">\log_ab=\dfrac{\log_cb}{\log_ca}(a>0,a \neq 1,c>0,c \neq 1)</script><p>此处，我们可以借助一个「第三方」的$c$来完成。这个$c$可以是$e,2,10$等数。</p>
+<p>【简单推导】</p>
+<script type="math/tex; mode=display">\log_xn=\dfrac{\log_cn}{\log_cx}</script><script type="math/tex; mode=display">m=\log_xn=\dfrac{\log_cn}{\log_cx}</script><script type="math/tex; mode=display">\log_cx=\dfrac{\log_cn}{m}</script><script type="math/tex; mode=display">x=c^{\frac{\log_cn}{m}}</script><p>注意！在输出答案时，最好不要将答案强制转换为$\text{int}$。更推荐以保留$0$位小数的形式直接输出浮点数。</p>
+<h3 id="text-Solution-5-二分"><a href="#text-Solution-5-二分" class="headerlink" title="$\text{Solution 5: 二分}$"></a>$\text{Solution 5: 二分}$</h3><p>期望得分：$100$分</p>
+<p>本题可以使用二分答案。</p>
+<p>初始情况左指针$l=1$，右指针$r=n$，每次取其中间指针$mid=\lfloor \dfrac{l+r}{2} \rfloor$。</p>
+<p>每次只要满足$mid^m \le n$，就把左指针$l$设定为$mid+1$，否则把右指针$r$设定为$mid-1$。</p>
+<p>当我们在二分查找数组中第一个大于被查找数的元素时，我们输出的是$l$。现在要找小于等于的元素，因此输出的是$\color{red}{l-1!!!}$</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://shenyouran.github.io/P5876/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1009,101 +1154,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://shenyouran.github.io/P1464/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="shenyouran">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="shenyouran's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/P1464/" class="post-title-link" itemprop="url">P1464 Function 题解</a>
-        </h2>
-
-        <div class="post-meta">
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-05-23 18:17:10" itemprop="dateCreated datePublished" datetime="2020-05-23T18:17:10+08:00">2020-05-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-03 19:00:19" itemprop="dateModified" datetime="2020-07-03T19:00:19+08:00">2020-07-03</time>
-              </span>
-
-          
-            <span id="/P1464/" class="post-meta-item leancloud_visitors" data-flag-title="P1464 Function 题解" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-              <span>2.6k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本题用到递归。递归我们都会打，所以得到代码：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> a,b,c;</span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">read</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> x=<span class="number">0</span>,f=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">char</span> ch=getchar();</span><br><span class="line">    <span class="keyword">while</span>(ch&lt;<span class="string">'0'</span>||ch&gt;<span class="string">'9'</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(ch==<span class="string">'-'</span>)f=<span class="number">-1</span>;</span><br><span class="line">        ch=getchar();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(ch&gt;=<span class="string">'0'</span>&amp;&amp;ch&lt;=<span class="string">'9'</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        x=(x&lt;&lt;<span class="number">1</span>)+(x&lt;&lt;<span class="number">3</span>)+(ch^<span class="number">48</span>);</span><br><span class="line">        ch=getchar();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> x*f;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> a,<span class="keyword">long</span> <span class="keyword">long</span> b,<span class="keyword">long</span> <span class="keyword">long</span> c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(a&lt;=<span class="number">0</span>||b&lt;=<span class="number">0</span>||c&lt;=<span class="number">0</span>)<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(a&gt;<span class="number">20</span>||b&gt;<span class="number">20</span>||c&gt;<span class="number">20</span>)<span class="keyword">return</span> f(<span class="number">20</span>,<span class="number">20</span>,<span class="number">20</span>);</span><br><span class="line">    <span class="keyword">if</span>(a&lt;b&amp;&amp;b&lt;c)<span class="keyword">return</span> f(a,b,c<span class="number">-1</span>)+f(a,b<span class="number">-1</span>,c<span class="number">-1</span>)-f(a,b<span class="number">-1</span>,c);</span><br><span class="line">    <span class="keyword">return</span> f(a<span class="number">-1</span>,b,c)+f(a<span class="number">-1</span>,b<span class="number">-1</span>,c)+f(a<span class="number">-1</span>,b,c<span class="number">-1</span>)-f(a<span class="number">-1</span>,b<span class="number">-1</span>,c<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        a=read(),b=read(),c=read();</span><br><span class="line">        <span class="keyword">if</span>(a==<span class="number">-1</span>&amp;&amp;b==<span class="number">-1</span>&amp;&amp;c==<span class="number">-1</span>)<span class="keyword">break</span>;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"w(%lld, %lld, %lld) = %d\n"</span>,a,b,c,f(a,b,c));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>然而却<code>TLE</code>了。题目中说$a=15,b=15,c=15$时，时间耗费会很长。输入之后，我等了$2$分钟都没有输出。于是我们必须使用记忆化搜索（题目已经提示了）。</p>
-<p>记忆化搜索的好处是，我们可以把答案存储进数组，这样就可以避免多余的计算。除了在$a,b,c$有一个大于$20$或有一个小于等于$0$时直接返回，其他情况都用数组保存。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/P1464/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1173,7 +1223,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1216,12 +1266,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">130k</span>
+    <span title="站点总字数">137k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:58</span>
+    <span title="站点阅读时长">2:05</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
